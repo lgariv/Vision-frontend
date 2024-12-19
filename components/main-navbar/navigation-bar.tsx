@@ -29,7 +29,7 @@ export default function Navbar() {
 		<header className="sticky top-0 flex h-16 items-center gap-4 border-b px-4 md:px-6 z-10 bg-transparent backdrop-blur font-heebo">
 			<nav className="hidden flex-col gap-4 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
 				<Link href="/" className="" prefetch={true}>
-					<h1 className="text-4xl font-bold text-primary font-pixelify">DOGMA</h1>
+					<h1 className="text-4xl font-bold text-primary font-pixelify">VISION</h1>
 				</Link>
 				<NavItem href="/">לוח מחוונים</NavItem>
 				<NavItem href="/map">מפה</NavItem>

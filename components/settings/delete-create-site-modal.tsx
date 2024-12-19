@@ -181,8 +181,7 @@ export default function SiteModal({ shouldDelete }: Props) {
 											<Input
 												name="displayName"
 												label="שם תצוגה"
-												description="השם שיש להציג ב-Dogma"
-												// description="השם שיש להציג ב-Vision"
+												description="השם שיש להציג ב-Vision"
 												isRequired
 												onValueChange={(value) =>
 													setDisplayName(value)

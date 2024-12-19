@@ -113,8 +113,7 @@ export default function EditSiteModal({ isOpen, onOpenChange, sitelist }: Props)
 									<Input
 										name="displayName"
 										label="שם תצוגה"
-										description="השם שיש להציג ב-Dogma"
-										// description="השם שיש להציג ב-Vision"
+										description="השם שיש להציג ב-Vision"
 										isRequired
 										value={displayName}
 										onValueChange={(value) =>

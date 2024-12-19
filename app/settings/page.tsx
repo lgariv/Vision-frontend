@@ -32,7 +32,7 @@ type Props = {
  */
 export default function Settings({ searchParams }: Props) {
 	const { primaryValue, setPrimaryValue } = usePreferencesStore();
-	const [ pendingPrimaryValue, setPendingPrimaryValue ] = useState<"UEs" | "RR" | "BW" | undefined>(primaryValue);
+	const [ pendingPrimaryValue, setPendingPrimaryValue ] = useState<"UEs" | "RR" | undefined>(primaryValue);
 
 	let currentTab = searchParams.tab ?? "preferences";
 
@@ -98,7 +98,7 @@ export default function Settings({ searchParams }: Props) {
 									dir="rtl"
 									defaultValue={primaryValue}
 									onValueChange={(
-										value: "UEs" | "RR" | "BW"
+										value: "UEs" | "RR"
 									) => {
 										setPendingPrimaryValue(value);
 									}}
@@ -112,9 +112,6 @@ export default function Settings({ searchParams }: Props) {
 										</SelectItem>
 										<SelectItem value="RR">
 											רצפת רעש
-										</SelectItem>
-										<SelectItem value="BW">
-											ניצול רוחב פס
 										</SelectItem>
 									</SelectContent>
 								</Select>

@@ -2,8 +2,8 @@ import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 
 type PreferencesStore = {
-	primaryValue: "UEs" | "RR" | "BW" | undefined;
-	setPrimaryValue: (value: "UEs" | "RR" | "BW" | undefined) => void;
+	primaryValue: "UEs" | "RR" | undefined;
+	setPrimaryValue: (value: "UEs" | "RR" | undefined) => void;
 	location: { [key: string]: string };
 	setLocation: (key: string, value: string) => void;
 };
@@ -11,8 +11,8 @@ type PreferencesStore = {
 export const usePreferencesStore = create<PreferencesStore>()(
 	persist(
 		(set, get) => ({
-			primaryValue: undefined,
-			setPrimaryValue: (value: "UEs" | "RR" | "BW" | undefined) => {
+			primaryValue: "UEs",
+			setPrimaryValue: (value: "UEs" | "RR" | undefined) => {
 				set(() => ({ primaryValue: value || get().primaryValue }));
 			},
 			location: {},

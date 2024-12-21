@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import MainNavbar from "@/components/main-navbar/navigation-bar";
 import { Pixelify_Sans, Heebo } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const heebo = Heebo({
 	subsets: ["latin"],

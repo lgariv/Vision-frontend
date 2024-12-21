@@ -51,7 +51,7 @@ export default function Settings({ searchParams }: Props) {
 	}, [ primaryValue ]);
 
 	return (
-		<div className="top-16 left-0 right-0 bottom-0 md:min-h-[calc(100vh-4rem)] w-full font-heebo">
+		<div className="min-h-[calc(100vh-4rem)] w-full font-heebo">
 			<main className="flex min-h-[calc(100vh_-_theme(spacing.16))] flex-1 flex-col gap-4 p-4">
 				<Tabs
 					defaultValue={currentTab}
@@ -97,7 +97,9 @@ export default function Settings({ searchParams }: Props) {
 								<Select
 									dir="rtl"
 									defaultValue={primaryValue}
-									onValueChange={(value: "UEs" | "RR") => {
+									onValueChange={(
+										value: "UEs" | "RR"
+									) => {
 										setPendingPrimaryValue(value);
 									}}
 								>

@@ -87,15 +87,16 @@ const MapDataLayer = (props: Props) => {
             {sitesData
                 ?.filter((site: any) => typeof site.data === "object")
                 .map((siteData: any, index: number) => {
+                    const isPortable: boolean = siteData.isPortable;
+
                     const currentData = siteData.data?.find((item: any) => item.index === "current")?.gpsData?.data?.[0];
                     const hasValidLocation = currentData?.latitude && !currentData.latitude.includes("0.") && currentData?.longitude; // TODO: similarly, add filter between 2 longlat points to filter out GPS discrepancies
 
-                    const pinLocation: LatLngExpression = hasValidLocation
+                    const pinLocation: LatLngExpression = hasValidLocation && isPortable
                         ? [currentData.latitude, currentData.longitude]
                         : siteData.defaultLocation.split(",").map(Number);
 
                     const displayName: string = siteData.displayName;
-                    const isPortable: boolean = siteData.isPortable;
                     const status: string = siteData.status;
                     
                     // if (!isPortable) { // TODO: Add different icon for portable sites

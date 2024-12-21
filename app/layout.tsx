@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import MainNavbar from "@/components/main-navbar/navigation-bar";
 import { Pixelify_Sans, Heebo } from "next/font/google";
+import { Analytics } from "@vercel/analytics/react";
 
 const heebo = Heebo({
 	subsets: ["latin"],
@@ -31,6 +32,7 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en" dir="rtl" className={`${heebo.variable} ${pixelify.variable}`}>
+			<Analytics/>
 			<body className={inter.className}>
 				<ThemeProvider
 					attribute="class"

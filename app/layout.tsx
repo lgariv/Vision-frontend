@@ -33,7 +33,8 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en" dir="rtl" className={`${heebo.variable} ${pixelify.variable}`}>
-			<Analytics/>
+			<Analytics />
+			<SpeedInsights />
 			<body className={inter.className}>
 				<ThemeProvider
 					attribute="class"

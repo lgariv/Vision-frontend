@@ -96,9 +96,9 @@ export default function Navbar() {
 				<div className="absolute top-16 left-0 right-0 bg-background border-b md:hidden p-4 pointer-events-auto">
 					<div className="grid grid-cols-2 gap-4">
 						<div className="grid grid-cols-1 space-y-4">
-							<NavItem href="/">לוח מחוונים</NavItem>
-							<NavItem href="/map">מפה</NavItem>
-							<NavItem href="/settings">הגדרות</NavItem>
+							<NavItem href="/" onClick={() => setIsMenuOpen(false)}>לוח מחוונים</NavItem>
+							<NavItem href="/map" onClick={() => setIsMenuOpen(false)}>מפה</NavItem>
+							<NavItem href="/settings" onClick={() => setIsMenuOpen(false)}>הגדרות</NavItem>
 						</div>
 						<div className="space-y-4">
 							<Select dir="rtl" onValueChange={(value: "הכל" | "צפון" | "מרכז" | "דרום" | "כלים ניידים") => {

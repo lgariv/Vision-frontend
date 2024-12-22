@@ -88,7 +88,7 @@ export default function SiteList() {
 				isOpen={isOpen}
 				onOpenChange={onOpenChange}
 				scrollBehavior="inside"
-				className="w-1/3 max-w-screen-2xl"
+				className="w-full md:w-1/3 md:max-w-screen-2xl"
 			>
 				<Content
 					data={modalDataToDisplay}

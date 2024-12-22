@@ -37,7 +37,7 @@ export default function Navbar() {
 	}, [isMenuOpen]);
 
 	return (
-        <header className="sticky top-0 flex h-16 items-center gap-4 border-b px-4 md:px-6 z-10 bg-transparent backdrop-blur font-heebo">
+        <header className="sticky top-0 flex h-16 items-center gap-4 border-b px-4 md:px-6 z-20 bg-transparent backdrop-blur font-heebo">
             <div className="flex w-full items-center justify-between">
                 <div className="flex items-center gap-4">
                     <Link href="/" className="" prefetch={true}>
@@ -93,7 +93,7 @@ export default function Navbar() {
             </div>
 
             {/* Mobile Menu */}
-			{isMenuOpen && (
+            {isMenuOpen && (
 				<div className="absolute top-16 left-0 right-0 z-100 bg-background border-b md:hidden p-4 pointer-events-auto">
 					<div className="grid grid-cols-2 gap-4">
 						<div className="grid grid-cols-1 space-y-4">

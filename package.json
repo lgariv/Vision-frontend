@@ -1,6 +1,6 @@
 {
 	"name": "vision",
-	"version": "1.2.0-21122024",
+	"version": "1.2.0-22122024",
 	"private": true,
 	"main": "page.tsx",
 	"scripts": {
@@ -21,7 +21,7 @@
 		"@vercel/speed-insights": "^1.1.0",
 		"class-variance-authority": "^0.7.0",
 		"clsx": "^2.1.1",
-		"framer-motion": "^11.2.10",
+		"framer-motion": "^11.15.0",
 		"humanize-duration": "^3.32.1",
 		"leaflet": "^1.9.4",
 		"leaflet-defaulticon-compatibility": "^0.1.2",

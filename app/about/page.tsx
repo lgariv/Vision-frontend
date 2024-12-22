@@ -14,14 +14,14 @@ const AboutPage = (props: Props) => {
 				)}
 			/>
 			<div className="relative flex md:min-h-screen lg:min-h-screen flex-col items-center justify-center p-4 -mt-16 pt-20">
-				<NeonGradientCard className="max-w-2xl">
-					<h1 className="mb-4 text-4xl font-bold text-white">
+				<NeonGradientCard className="max-w-2xl z-10">
+					<h1 className="mb-4 text-4xl font-bold text-foreground">
 						אודות Vision
 					</h1>
 					<div>
-						<p className="mb-6 text-lg text-gray-200">
+						<p className="mb-6 text-lg text-foreground">
 							אפליקציית web לניטור וניהול מערכות תקשורת סלולריות
-							מסוג eNodeB. הפרויקט פותח עם{" "}
+							מסוג <strong>eNodeB</strong>. הפרויקט פותח עם{" "}
 							<strong>Next.js 14</strong> ו-
 							<strong>Express</strong>, ומאפשר מעקב בזמן אמת אחרי
 							נתונים חשובים כמו כמות מכשירים פעילים, התראות
@@ -31,7 +31,7 @@ const AboutPage = (props: Props) => {
 							של נתונים בזמן אמת וארכיטקטורה סקיילבילית.
 						</p>
 
-						<ul className="mb-6 text-lg text-gray-200 list-disc list-inside">
+						<ul className="mb-6 text-lg text-foreground list-disc list-inside">
 							<li>
 								<strong>Render.com</strong>: מנהלת את ה-Backend
 								ביעילות, עם תמיכה בעומסים משתנים ויכולת פריסה
@@ -50,7 +50,7 @@ const AboutPage = (props: Props) => {
 							</li>
 						</ul>
 
-						<p className="mb-6 text-lg text-gray-200">
+						<p className="mb-6 text-lg text-foreground">
 							החיבור בין הטכנולוגיות האלו יוצר פתרון חכם וחדשני
 							לניהול מערכות תקשורת סלולריות, שתוכנן לספק ביצועים
 							מצוינים ומענה פשוט גם לאתגרים מורכבים.

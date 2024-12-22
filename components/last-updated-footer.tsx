@@ -50,9 +50,9 @@ export default function LastUpdatedFooter() {
     }, []);
 
     if (humanDateFormat !== "") return (
-        <footer className="text-[1.2vw] select-none bottom-0 self-end line-clamp-1 text-muted-foreground sticky max-h-fit w-fit flex-shrink-0 p-[0.5vw] bg-gradient-to-tr from-secondary via-transparent to-transparent backdrop-blur-sm text-left rounded-tr-lg">
-            עודכן לאחרונה לפני {humanDateFormat}
-        </footer>
+		<footer className="text-[16px] md:text-[1.2vw] select-none bottom-0 self-end line-clamp-1 text-muted-foreground sticky max-h-fit md:w-fit w-full flex-shrink-0 p-[0.5vw] bg-gradient-to-tr from-secondary via-transparent to-transparent backdrop-blur-sm text-center md:text-left md:rounded-tr-lg">
+			עודכן לאחרונה לפני {humanDateFormat}
+		</footer>
 	);
 }
 

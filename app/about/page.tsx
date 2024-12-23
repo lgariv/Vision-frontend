@@ -27,6 +27,7 @@ const AboutPage = (props: Props) => {
 								פותח על ידי{" "}
 								<a
 									href="https://www.linkedin.com/in/lavie-g-3a66a21ba/"
+									target="_blank"
 									rel="noopener noreferrer"
 									className="hover:underline"
 								>
@@ -102,8 +103,9 @@ const AboutPage = (props: Props) => {
 							style={{
 								backgroundColor: "#eee",
 								color: "#333",
-								// borderColor: "#333",
 							}}
+							target="_blank"
+							rel="noopener noreferrer"
 						>
 							צפה ב-GitHub
 						</Button>
@@ -116,6 +118,8 @@ const AboutPage = (props: Props) => {
 								backgroundColor: "#0077B5",
 								color: "#fff",
 							}}
+							target="_blank"
+							rel="noopener noreferrer"
 						>
 							LinkedIn
 						</Button>

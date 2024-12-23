@@ -74,7 +74,7 @@ const AboutPage = (props: Props) => {
 							</li>
 							<li>
 								<strong>Vercel</strong>: אחראית לפריסת
-								ה-Frontend, תוך שימוש ברשת Edge שמאפשרת טעינה
+								ה-Frontend, תוך שימוש ברשת CDN שמאפשרת טעינה
 								מהירה וחוויית משתמש מיטבית בכל מקום בעולם.
 							</li>
 						</ul>

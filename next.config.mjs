@@ -2,7 +2,13 @@
 const nextConfig = {
 	output: "standalone",
 	images: {
-		domains: ["media.licdn.com"],
+		remotePatterns: [
+			{
+				protocol: "https",
+				hostname: "media.licdn.com",
+				pathname: "/dms/image/v2/**",
+			},
+		],
 	},
 };
 

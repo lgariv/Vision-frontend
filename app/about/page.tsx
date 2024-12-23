@@ -56,13 +56,13 @@ const AboutPage = (props: Props) => {
 							מצוינים ומענה פשוט גם לאתגרים מורכבים.
 						</p>
 					</div>
-					<div className="flex flex-row space-x-4">
+					<div className="grid grid-cols-2 md:flex gap-4 w-full">
 						<Button
 							as="a"
 							href="https://github.com/lgariv/Vision-frontend"
 							target="_blank"
 							startContent={<Github />}
-							className="me-4 font-bold font-sans"
+							className="font-bold font-sans"
 							style={{
 								backgroundColor: "#eee",
 								color: "#333",
@@ -86,6 +86,7 @@ const AboutPage = (props: Props) => {
 							LinkedIn
 						</Button>
 					</div>
+
 				</NeonGradientCard>
 			</div>
 		</main>

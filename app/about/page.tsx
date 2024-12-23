@@ -43,7 +43,7 @@ const AboutPage = (props: Props) => {
 						/>
 					</div>
 					<div>
-						<p className="mb-6 text-lg text-foreground">
+						<p className="mb-6 text-lg text-foreground text-pretty">
 							Vision היא אפליקציית web לניטור וניהול מערכות תקשורת
 							סלולריות מסוג eNodeB. הפרויקט פותח עם{" "}
 							<strong>Next.js 14</strong> ו-
@@ -55,10 +55,15 @@ const AboutPage = (props: Props) => {
 							של נתונים בזמן אמת וארכיטקטורה סקיילבילית.
 						</p>
 
+						<hr className="my-4 border-foreground/10 border-t-[2.5px] rounded-lg" />
+
+						<p className="text-lg text-foreground font-bold">
+							הפרויקט נפרס על תשתית ענן מתקדמת הכוללת:
+						</p>
 						<ul className="mb-6 text-lg text-foreground list-disc list-inside">
 							<li>
 								<strong>Render.com</strong>: מנהלת את ה-Backend
-								ביעילות, עם תמיכה בעומסים משתנים ויכולת פריסה
+								ביעילות, עם תמיכה בעומסים. משתנים ויכולת פריסה
 								מהירה.
 							</li>
 							<li>
@@ -74,10 +79,12 @@ const AboutPage = (props: Props) => {
 							</li>
 						</ul>
 
+						<hr className="my-4 border-foreground/10 border-t-[2.5px] rounded-lg" />
+
 						<p className="mb-6 text-lg text-foreground">
-							החיבור בין הטכנולוגיות האלו יוצר פתרון חכם וחדשני
-							לניהול מערכות תקשורת סלולריות, שתוכנן לספק ביצועים
-							מצוינים ומענה פשוט גם לאתגרים מורכבים.
+							השילוב בין הטכנולוגיות האלו יוצר מערכת יציבה, נוחה
+							וסקיילבילית, המספקת פתרון מתקדם לניהול מערכות תקשורת
+							סלולריות ברשת LTE.
 						</p>
 					</div>
 					<div className="grid grid-cols-2 md:flex gap-4 w-full">
@@ -85,12 +92,11 @@ const AboutPage = (props: Props) => {
 							as="a"
 							href="https://github.com/lgariv/Vision-frontend"
 							startContent={<Github />}
-							className="font-bold font-sans"
+							className="font-bold font-sans border-2 dark:border-0 border-[#333]"
 							style={{
 								backgroundColor: "#eee",
 								color: "#333",
-								borderColor: "#333",
-								borderWidth: "1px",
+								// borderColor: "#333",
 							}}
 						>
 							צפה ב-GitHub

@@ -3,6 +3,8 @@ import DotPattern from "@/components/ui/dot-pattern";
 import { NeonGradientCard } from "@/components/ui/neon-gradient-card";
 import { Button } from "@nextui-org/react";
 import { Github, Linkedin } from "lucide-react";
+import Image from "next/image";
+
 type Props = {};
 
 const AboutPage = (props: Props) => {
@@ -15,13 +17,35 @@ const AboutPage = (props: Props) => {
 			/>
 			<div className="relative flex md:min-h-screen lg:min-h-screen flex-col items-center justify-center p-4 -mt-16 pt-20">
 				<NeonGradientCard className="max-w-2xl z-10">
-					<h1 className="mb-4 text-4xl font-bold text-foreground">
-						אודות Vision
-					</h1>
+					<div className="flex items-center justify-between mb-4">
+						<div>
+							<h1 className="text-4xl md:text-5xl font-bold text-foreground -my-2">
+								אודות{" "}
+								<span className="font-pixelify">VISION</span>
+							</h1>
+							<h2 className="text-lg md:text-xl text-foreground/75 mt-2">
+								פותח על ידי{" "}
+								<a
+									href="https://www.linkedin.com/in/lavie-g-3a66a21ba/"
+									rel="noopener noreferrer"
+									className="hover:underline"
+								>
+									לביא גריב
+								</a>
+							</h2>
+						</div>
+						<Image
+							src="https://media.licdn.com/dms/image/v2/D4E03AQHA8OANx3jqDQ/profile-displayphoto-shrink_800_800/B4EZOvY7Z3HEAc-/0/1733814368868?e=1740614400&amp;v=beta&amp;t=5b5Wk0y8iXWTHqmOcdOUx9ygzW0k-DVeeAQHkrcvQJ4"
+							alt="Vision Creator"
+							className="w-24 h-24 md:w-32 md:h-32 rounded-full object-cover"
+							width={128}
+							height={128}
+						/>
+					</div>
 					<div>
 						<p className="mb-6 text-lg text-foreground">
-							אפליקציית web לניטור וניהול מערכות תקשורת סלולריות
-							מסוג <strong>eNodeB</strong>. הפרויקט פותח עם{" "}
+							Vision היא אפליקציית web לניטור וניהול מערכות תקשורת
+							סלולריות מסוג eNodeB. הפרויקט פותח עם{" "}
 							<strong>Next.js 14</strong> ו-
 							<strong>Express</strong>, ומאפשר מעקב בזמן אמת אחרי
 							נתונים חשובים כמו כמות מכשירים פעילים, התראות
@@ -60,7 +84,6 @@ const AboutPage = (props: Props) => {
 						<Button
 							as="a"
 							href="https://github.com/lgariv/Vision-frontend"
-							target="_blank"
 							startContent={<Github />}
 							className="font-bold font-sans"
 							style={{
@@ -75,7 +98,6 @@ const AboutPage = (props: Props) => {
 						<Button
 							as="a"
 							href="https://www.linkedin.com/in/lavie-g-3a66a21ba/"
-							target="_blank"
 							startContent={<Linkedin />}
 							className="font-bold font-sans"
 							style={{
@@ -86,7 +108,6 @@ const AboutPage = (props: Props) => {
 							LinkedIn
 						</Button>
 					</div>
-
 				</NeonGradientCard>
 			</div>
 		</main>

@@ -20,7 +20,7 @@ The frontend leverages modern technologies to deliver a dynamic and responsive u
 ### Frontend
 
 - **React 18** with **Next.js 14** for efficient server-side rendering and dynamic routing.
-- **NextUI** for building accessible, customizable, and responsive UI components.
+- **NextUI**, **shadcn/ui** and **Magic UI** for building accessible, customizable, and responsive UI components.
 - **Zustand** for state management, enabling a simple and scalable solution for handling application state.
 - **Leaflet** for rendering interactive maps, providing geospatial visualization of network nodes.
 - **Tailwind CSS** for responsive and modern styling.

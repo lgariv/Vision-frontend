@@ -16,7 +16,7 @@ const AboutPage = (props: Props) => {
 				)}
 			/> */}
 			<div className="relative flex md:min-h-screen lg:min-h-screen flex-col items-center justify-center p-4 -mt-16 pt-20">
-				<NeonGradientCard className="max-w-2xl z-10">
+				<NeonGradientCard className="max-w-2xl">
 					<div className="flex items-center justify-between mb-4">
 						<div>
 							<h1 className="text-4xl md:text-5xl font-bold text-foreground -my-2">

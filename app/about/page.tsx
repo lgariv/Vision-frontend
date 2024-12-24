@@ -10,12 +10,16 @@ type Props = {};
 const AboutPage = (props: Props) => {
 	return (
 		<main
-			className="bg-blue-500 font-heebo overflow-x-hidden overflow-y-auto z-1"
+			className="relative font-heebo overflow-x-hidden z-1 min-h-screen bg-blue-500"
 			dir="rtl"
 		>
-			<DotPattern className="" />
-			<div className="relative flex flex-col items-center justify-center w-full h-screen p-4 pt-20">
-				<NeonGradientCard className="max-w-2xl z-10 bg-white border border-red-500">
+			<DotPattern
+				className={cn(
+					"absolute inset-0 w-full h-full [mask-image:radial-gradient(800px_circle_at_center,white,transparent)]"
+				)}
+			/>
+			<div className="relative flex flex-col items-center justify-center min-h-screen p-6 pt-20">
+				<NeonGradientCard className="w-full max-w-2xl z-10 bg-white shadow-md rounded-lg">
 					<div className="flex items-center justify-between mb-4">
 						<div>
 							<h1 className="text-4xl md:text-5xl font-bold text-foreground -my-2">

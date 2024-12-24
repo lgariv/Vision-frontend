@@ -4,7 +4,7 @@
 
 Vision is a **web application** specifically built for monitoring and managing **cellular network systems**, with a focus on **eNodeB** equipment. This repository contains the **frontend** of the Vision platform, providing a robust, scalable, and user-friendly interface for overseeing critical telecommunications infrastructure. Built with **Next.js 14**, the frontend ensures seamless interaction and visualization of real-time data.
 
-For the backend repository and API services, visit the [Vision Backend](backend-repo-link).
+For the backend repository and API services, visit the [Vision Backend](https://github.com/lgariv/Vision-frontend/).
 
 Key features include:
 
@@ -90,7 +90,7 @@ The frontend leverages modern technologies to deliver a dynamic and responsive u
 
    - Navigate to `http://localhost:3000`.
 
-For backend setup, refer to the [Vision Backend Repository](backend-repo-link).
+For backend setup, refer to the [Vision Backend](https://github.com/lgariv/Vision-frontend/).
 
 ---
 

@@ -8,7 +8,7 @@ import Image from "next/image";
 type Props = {};
 
 const AboutPage = (props: Props) => {
-    return (
+	return (
 		<main className="font-heebo overscroll-y-none z-1" dir="rtl">
 			<DotPattern
 				className={cn(
@@ -70,14 +70,13 @@ const AboutPage = (props: Props) => {
 						<ul className="mb-6 text-lg text-foreground list-disc list-inside">
 							<li>
 								<strong>Render.com</strong>: מנהלת את ה-Backend
-								ביעילות, עם תמיכה בעומסים. משתנים ויכולת פריסה
+								ביעילות, עם תמיכה בעומסים משתנים ויכולת פריסה
 								מהירה.
 							</li>
 							<li>
 								<strong>Supabase</strong>: מסד נתונים מבוסס{" "}
 								<strong>PostgreSQL</strong> שמבטיח אחסון וניהול
-								מידע פשוט ומהיר, עם API שמתממשק בצורה חלקה
-								לשירותים אחרים.
+								מידע פשוט ומהיר בצורה מאובטחת.
 							</li>
 							<li>
 								<strong>Vercel</strong>: אחראית לפריסת
@@ -90,7 +89,7 @@ const AboutPage = (props: Props) => {
 
 						<p className="mb-6 text-lg text-foreground">
 							השילוב בין הטכנולוגיות האלו יוצר מערכת יציבה, נוחה
-							וסקיילבילית, המספקת פתרון מתקדם לניהול מערכות תקשורת
+							וסקיילבילית, המספקת פתרון יעיל לניהול מערכות תקשורת
 							סלולריות ברשת LTE.
 						</p>
 					</div>

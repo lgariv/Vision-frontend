@@ -63,7 +63,7 @@ The frontend leverages modern technologies to deliver a dynamic and responsive u
 ### Prerequisites
 
 - **Node.js** (version 16 or later)
-- **Docker** (for containerized development and deployment)
+- **Git** (for cloning the repository)
 
 ### Installation Steps
 
@@ -112,6 +112,6 @@ This project is licensed under the **GNU General Public License v3.0 (GPL-3.0)**
 
 ## Contact
 
-For further information or inquiries, reach out to the development team:
+For further information or inquiries, reach out:
 
 **LinkedIn**: [Lavie Gariv](https://www.linkedin.com/in/lavie-g-3a66a21ba/)

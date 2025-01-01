@@ -16,9 +16,10 @@ const center: LatLngExpression = [32.089456319281176, 34.893238387602985];
 export default function MyMap(props: any) {
     const {resolvedTheme} = useTheme();
 
-	const SERVER_MAP = resolvedTheme === "light" 
-		? "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-		: "https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png";
+	const SERVER_MAP =
+		resolvedTheme === "light"
+			? "https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png"
+			: "https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png";
     
     return (
 		<>

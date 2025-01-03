@@ -168,7 +168,7 @@ export default function SitesTable() {
 				<TableHeader>
 					<TableColumn>AMOS</TableColumn>
 					<TableColumn>תצוגה</TableColumn>
-					<TableColumn>פיקוד</TableColumn>
+					<TableColumn>גזרה</TableColumn>
 					<TableColumn>סוג</TableColumn>
 				</TableHeader>
 				<TableBody items={slicedItems}>

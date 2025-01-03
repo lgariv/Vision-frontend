@@ -190,8 +190,8 @@ export default function SiteModal({ shouldDelete }: Props) {
 											<Select
 												name="pikud"
 												isRequired
-												label="פיקוד"
-												description="הפיקוד אליו שייך האתר"
+												label="גזרה"
+												description="הגזרה אליה שייך האתר"
 												onSelectionChange={(keys) => {
 													setPikud(
 														Array.from(keys)[0] !==

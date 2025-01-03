@@ -20,7 +20,6 @@ import { updateAlert } from "@/actions/forms";
 type Props = {
 	isOpen: boolean;
 	onOpenChange: () => void;
-	alertslist: any;
 };
 
 /**
@@ -28,7 +27,7 @@ type Props = {
  * @param {Props} shouldDelete - Indicates whether the alert should be deleted.
  * @returns {JSX.Element} The rendered modal component.
  */
-export default function EditAlertModal({ isOpen, onOpenChange, alertslist }: Props) {
+export default function EditAlertModal({ isOpen, onOpenChange }: Props) {
 	const [updateAlertState, updateAlertFormAction] = useFormState(
 		updateAlert,
 		null

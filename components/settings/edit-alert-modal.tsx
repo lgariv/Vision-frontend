@@ -61,7 +61,6 @@ export default function EditAlertModal({ isOpen, onOpenChange, alertslist }: Pro
 		formData.append("password", password);
 		updateAlertFormAction(formData);
 		setIsConfirmationOpen(false);
-		onOpenChange();
 	};
 
 	return (
@@ -183,7 +182,10 @@ export default function EditAlertModal({ isOpen, onOpenChange, alertslist }: Pro
 								<Button
 									color="primary"
 									className="font-heebo"
-									onPress={() => setIsConfirmationOpen(true)}
+									onPress={() => {
+										setIsConfirmationOpen(true);
+										onClose();
+									}}
 									isDisabled={
 										body?.length === 0 ||
 										modifier?.length === 0

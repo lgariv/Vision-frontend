@@ -6,20 +6,20 @@ import {
 	ModalBody,
 	ModalFooter,
 	Button,
-    Input,
-    Select,
-    SelectItem,
-    Chip,
+	Input,
+	Select,
+	SelectItem,
+	Chip,
 } from "@nextui-org/react";
-import { updateAlert } from "@/actions/forms";
 import { useEffect, useState } from "react";
 import { useFormState } from "react-dom";
 import { mutate } from "swr";
+import ConfirmationModal from "./confirmation-modal";
+import { updateAlert } from "@/actions/forms";
 
 type Props = {
 	isOpen: boolean;
 	onOpenChange: () => void;
-	alertslist: any;
 };
 
 /**
@@ -27,7 +27,7 @@ type Props = {
  * @param {Props} shouldDelete - Indicates whether the alert should be deleted.
  * @returns {JSX.Element} The rendered modal component.
  */
-export default function EditAlertModal({ isOpen, onOpenChange, alertslist }: Props) {
+export default function EditAlertModal({ isOpen, onOpenChange }: Props) {
 	const [updateAlertState, updateAlertFormAction] = useFormState(
 		updateAlert,
 		null
@@ -37,6 +37,7 @@ export default function EditAlertModal({ isOpen, onOpenChange, alertslist }: Pro
 
 	const [body, setBody] = useState("");
 	const [modifier, setModifier] = useState("");
+	const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
 
 	useEffect(() => {
 		if (updateAlertState !== null) {
@@ -49,6 +50,18 @@ export default function EditAlertModal({ isOpen, onOpenChange, alertslist }: Pro
 		setModifier(editedAlert?.modifier || "");
 	}, [editedAlert]);
 
+	const handleSave = (password: string) => {
+		// Perform any password validation here if needed
+		// Trigger the form submission using useFormState
+		const formData = new FormData();
+		formData.append("id", `${editedAlert!.id}`);
+		formData.append("body", body);
+		formData.append("modifier", modifier);
+		formData.append("password", password);
+		updateAlertFormAction(formData);
+		setIsConfirmationOpen(false);
+	};
+
 	return (
 		<>
 			<Modal isOpen={isOpen} onOpenChange={onOpenChange}>
@@ -59,10 +72,7 @@ export default function EditAlertModal({ isOpen, onOpenChange, alertslist }: Pro
 								עריכת התראה
 							</ModalHeader>
 							<ModalBody className="font-heebo">
-								<form
-									action={updateAlertFormAction}
-									id="updatealertform"
-								>
+								<form id="updatealertform">
 									<input
 										name="id"
 										value={`${editedAlert!.id}`}
@@ -160,7 +170,9 @@ export default function EditAlertModal({ isOpen, onOpenChange, alertslist }: Pro
 									className="text-destructive bg-transparent hover:bg-destructive/20 font-heebo"
 									onPress={() => {
 										setBody(editedAlert?.body || "");
-										setModifier(editedAlert?.modifier || "");
+										setModifier(
+											editedAlert?.modifier || ""
+										);
 										onClose();
 									}}
 								>
@@ -170,12 +182,9 @@ export default function EditAlertModal({ isOpen, onOpenChange, alertslist }: Pro
 									color="primary"
 									className="font-heebo"
 									onPress={() => {
-										setBody(editedAlert?.body || "");
-										setModifier(editedAlert?.modifier || "");
+										setIsConfirmationOpen(true);
 										onClose();
 									}}
-									type="submit"
-									form="updatealertform"
 									isDisabled={
 										body?.length === 0 ||
 										modifier?.length === 0
@@ -188,6 +197,11 @@ export default function EditAlertModal({ isOpen, onOpenChange, alertslist }: Pro
 					)}
 				</ModalContent>
 			</Modal>
+			<ConfirmationModal
+				isOpen={isConfirmationOpen}
+				onClose={() => setIsConfirmationOpen(false)}
+				onConfirm={handleSave}
+			/>
 		</>
 	);
 }

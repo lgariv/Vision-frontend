@@ -124,7 +124,7 @@ export default function SitesTable() {
 				</label>
 			</div>
 
-			<EditSiteModal isOpen={isEditOpen} onOpenChange={onEditOpenChange} sitelist={sitelist} />
+			<EditSiteModal isOpen={isEditOpen} onOpenChange={onEditOpenChange} />
 
 			<Table
 				color="primary"
@@ -168,7 +168,7 @@ export default function SitesTable() {
 				<TableHeader>
 					<TableColumn>AMOS</TableColumn>
 					<TableColumn>תצוגה</TableColumn>
-					<TableColumn>פיקוד</TableColumn>
+					<TableColumn>גזרה</TableColumn>
 					<TableColumn>סוג</TableColumn>
 				</TableHeader>
 				<TableBody items={slicedItems}>

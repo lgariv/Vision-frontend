@@ -59,14 +59,14 @@ export default function ConfirmationModal({
 				{(onCloseContent) => (
 					<form onSubmit={authenticateUser}>
 						<ModalHeader className="flex flex-col gap-1 font-heebo">
-							אישור סיסמה
+							אישור גישה
 						</ModalHeader>
 						<ModalBody className="font-heebo">
 							<Input
 								name="password"
 								label="סיסמה"
 								type="password"
-								description="יש להכניס סיסמה למשתמש Admin על מנת להחיל שינויים"
+								description="יש להכניס סיסמה למשתמש Admin על מנת להחיל שינויים אלו"
 								value={password}
 								onValueChange={(value) => setPassword(value)}
 							/>

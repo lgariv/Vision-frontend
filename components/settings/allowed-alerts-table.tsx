@@ -112,7 +112,6 @@ export default function AllowedAlertsTable() {
 			<EditAlertModal
 				isOpen={isEditOpen}
 				onOpenChange={onEditOpenChange}
-				alertslist={alertslist}
 			/>
 
 			<Table

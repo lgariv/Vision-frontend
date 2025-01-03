@@ -124,7 +124,7 @@ export default function SitesTable() {
 				</label>
 			</div>
 
-			<EditSiteModal isOpen={isEditOpen} onOpenChange={onEditOpenChange} sitelist={sitelist} />
+			<EditSiteModal isOpen={isEditOpen} onOpenChange={onEditOpenChange} />
 
 			<Table
 				color="primary"

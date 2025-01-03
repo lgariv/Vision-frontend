@@ -7,17 +7,18 @@ import {
 	ModalFooter,
 	Button,
 	useDisclosure,
-    Input,
-    Select,
-    SelectItem,
-    Chip,
-    ChipProps,
+	Input,
+	Select,
+	SelectItem,
+	Chip,
+	ChipProps,
 } from "@nextui-org/react";
 import { DeleteIcon, PlusIcon } from "lucide-react";
 import { deleteSite, submitNewSite } from "@/actions/forms";
 import { useEffect, useMemo, useState } from "react";
 import { useFormState } from "react-dom";
 import { mutate } from "swr";
+import ConfirmationModal from "./confirmation-modal";
 
 const statusColorMap: Record<string, ChipProps["color"]> = {
 	צפון: "success",
@@ -25,23 +26,27 @@ const statusColorMap: Record<string, ChipProps["color"]> = {
 	דרום: "danger",
 };
 
-const validateLocation = (value: string) => value.match(/^[0-9]+.[0-9]+$/i);
-const validateIP = (value: string) => value.match(/^([0-9]{1,3}\.){3}[0-9]{1,3}$/);
+const validateLocation = (value: string) => /^[0-9]+.[0-9]+$/i.test(value);
+const validateIP = (value: string) =>
+	/^([0-9]{1,3}\.){3}[0-9]{1,3}$/.test(value);
 
 type Props = {
-    shouldDelete: boolean;
+	shouldDelete: boolean;
 };
 
 /**
- * Renders a modal component for managing sites.
+ * Renders a modal component for managing sites with password confirmation.
  * @param {Props} shouldDelete - Indicates whether the site should be deleted.
  * @returns {JSX.Element} The rendered modal component.
  */
 export default function SiteModal({ shouldDelete }: Props) {
 	const { isOpen, onOpen, onOpenChange } = useDisclosure();
-	const [createNewSiteState, newSiteFormAction] = useFormState(submitNewSite, null);
+	const [createNewSiteState, newSiteFormAction] = useFormState(
+		submitNewSite,
+		null
+	);
 	const [deleteState, deleteFormAction] = useFormState(deleteSite, null);
-    
+
 	const { selectedKeys, setSelectedKeys } = useSitesStore();
 
 	const [deletePending, setDeletePending] = useState(false);
@@ -54,23 +59,24 @@ export default function SiteModal({ shouldDelete }: Props) {
 	const [isPortable, setIsPortable] = useState("");
 	const [longitude, setLongitude] = useState("");
 	const [latitude, setLatitude] = useState("");
+	const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
+	const [pendingAction, setPendingAction] = useState<
+		"delete" | "create" | null
+	>(null);
 
 	const isLongInvalid = useMemo(() => {
 		if (longitude === "") return false;
-
-		return validateLocation(longitude) ? false : true;
+		return !validateLocation(longitude);
 	}, [longitude]);
 
 	const isLatInvalid = useMemo(() => {
 		if (latitude === "") return false;
-
-		return validateLocation(latitude) ? false : true;
+		return !validateLocation(latitude);
 	}, [latitude]);
 
 	const isIPInvalid = useMemo(() => {
 		if (siteIP === "") return false;
-
-		return validateIP(siteIP) ? false : true;
+		return !validateIP(siteIP);
 	}, [siteIP]);
 
 	useEffect(() => {
@@ -81,7 +87,51 @@ export default function SiteModal({ shouldDelete }: Props) {
 		}
 	}, [createNewSiteState, deleteState]);
 
-    return (
+	const handleDelete = (password: string) => {
+		setDeletePending(true);
+		const formData = new FormData();
+		formData.append("siteName", selectedKeys.toString());
+		formData.append("password", password);
+		deleteFormAction(formData);
+		setIsConfirmationOpen(false);
+		setSelectedKeys([]);
+	};
+
+	const handleCreate = (password: string) => {
+		setCreatePending(true);
+		const formData = new FormData();
+		formData.append("siteName", siteName);
+		formData.append("displayName", displayName);
+		formData.append("pikud", pikud);
+		formData.append("type", type);
+		formData.append("siteIP", siteIP);
+		formData.append("isPortable", isPortable);
+		formData.append("longitude", longitude);
+		formData.append("latitude", latitude);
+		formData.append("password", password);
+		newSiteFormAction(formData);
+		setIsConfirmationOpen(false);
+		setSiteName("");
+		setDisplayName("");
+		setPikud("");
+		setType("");
+		setSiteIP("");
+		setIsPortable("");
+		setLongitude("");
+		setLatitude("");
+	};
+
+	const confirmDelete = () => {
+		setPendingAction("delete");
+		setIsConfirmationOpen(true);
+	};
+
+	const confirmCreate = () => {
+		setPendingAction("create");
+		setIsConfirmationOpen(true);
+	};
+
+	return (
 		<>
 			{shouldDelete || deletePending ? (
 				<div>
@@ -104,20 +154,10 @@ export default function SiteModal({ shouldDelete }: Props) {
 										מחיקה
 									</ModalHeader>
 									<ModalBody className="font-heebo">
-										<form
-											action={deleteFormAction}
-											id="deletesiteform"
-										>
-											<input
-												type="hidden"
-												name="siteName"
-												value={selectedKeys}
-											/>
-											<p>
-												האם אתה בטוח שברצונך למחוק את
-												האתרים שנבחרו?
-											</p>
-										</form>
+										<p>
+											האם אתה בטוח שברצונך למחוק את האתרים
+											שנבחרו?
+										</p>
 									</ModalBody>
 									<ModalFooter>
 										<Button
@@ -127,13 +167,11 @@ export default function SiteModal({ shouldDelete }: Props) {
 											ביטול
 										</Button>
 										<Button
+											color="primary"
 											className="bg-destructive text-primary-foreground font-heebo"
-											type="submit"
-											form="deletesiteform"
 											onPress={() => {
-												setDeletePending(true);
+												confirmDelete();
 												onClose();
-												setSelectedKeys([]);
 											}}
 										>
 											מחיקה
@@ -165,10 +203,7 @@ export default function SiteModal({ shouldDelete }: Props) {
 										אתר חדש
 									</ModalHeader>
 									<ModalBody className="font-heebo">
-										<form
-											action={newSiteFormAction}
-											id="newsiteform"
-										>
+										<form id="newsiteform">
 											<Input
 												name="siteName"
 												label="AMOS"
@@ -386,19 +421,9 @@ export default function SiteModal({ shouldDelete }: Props) {
 											color="primary"
 											className="font-heebo"
 											onPress={() => {
-												setSiteName("");
-												setDisplayName("");
-												setPikud("");
-												setType("");
-												setSiteIP("");
-												setIsPortable("");
-												setLongitude("");
-												setLatitude("");
-												setCreatePending(true);
+												confirmCreate();
 												onClose();
 											}}
-											type="submit"
-											form="newsiteform"
 											isDisabled={
 												siteName.length === 0 ||
 												displayName.length === 0 ||
@@ -421,6 +446,19 @@ export default function SiteModal({ shouldDelete }: Props) {
 					</Modal>
 				</div>
 			)}
+
+			{/* Password Confirmation Modal */}
+			<ConfirmationModal
+				isOpen={isConfirmationOpen}
+				onClose={() => setIsConfirmationOpen(false)}
+				onConfirm={(password) => {
+					if (pendingAction === "delete") {
+						handleDelete(password);
+					} else if (pendingAction === "create") {
+						handleCreate(password);
+					}
+				}}
+			/>
 		</>
 	);
 }

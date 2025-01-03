@@ -74,8 +74,8 @@ export async function submitNewAlert(state: any, formData: FormData) {
 	return data;
 }
 
-export async function updateAlert(state: any, formData: FormData) {
-	const dictBody = Object.fromEntries(formData.entries() as any);
+export async function updateAlert(state: any, formData: FormData) {	
+	const dictBody = Object.fromEntries(formData.entries() as any);	
 	dictBody.id = Number(dictBody.id);
 
 	const rawBody = JSON.stringify(dictBody);
@@ -102,7 +102,6 @@ export async function updateAlert(state: any, formData: FormData) {
 
 export async function deleteAlert(state: any, formData: FormData) {
 	const dictBody = Object.fromEntries(formData.entries() as any);
-	console.log(`dictBody delete :: ${JSON.stringify(dictBody)}`);
 	if (JSON.stringify(dictBody).includes(","))
 		dictBody.allowedAlertId = dictBody.allowedAlertId.split(",").map((i: string) => Number(i));
 	else

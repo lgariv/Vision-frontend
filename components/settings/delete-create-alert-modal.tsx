@@ -7,19 +7,20 @@ import {
 	ModalFooter,
 	Button,
 	useDisclosure,
-    Input,
-    Select,
-    SelectItem,
-    Chip,
+	Input,
+	Select,
+	SelectItem,
+	Chip,
 } from "@nextui-org/react";
 import { DeleteIcon, PlusIcon } from "lucide-react";
 import { deleteAlert, submitNewAlert } from "@/actions/forms";
 import { useEffect, useState } from "react";
 import { useFormState } from "react-dom";
 import { mutate } from "swr";
+import ConfirmationModal from "./confirmation-modal";
 
 type Props = {
-    shouldDelete: boolean;
+	shouldDelete: boolean;
 };
 
 /**
@@ -29,25 +30,64 @@ type Props = {
  */
 export default function AlertModal({ shouldDelete }: Props) {
 	const { isOpen, onOpen, onOpenChange } = useDisclosure();
-	const [createNewAlertState, newAlertFormAction] = useFormState(submitNewAlert, null);
+	const [createNewAlertState, newAlertFormAction] = useFormState(
+		submitNewAlert,
+		null
+	);
 	const [deleteState, deleteFormAction] = useFormState(deleteAlert, null);
-    
+
 	const { selectedKeys, setSelectedKeys } = useAlertsStore();
 
 	const [deletePending, setDeletePending] = useState(false);
 	const [createPending, setCreatePending] = useState(false);
 	const [body, setBody] = useState("");
 	const [modifier, setModifier] = useState("BEGINS");
+	const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
+	const [pendingAction, setPendingAction] = useState<
+		"delete" | "create" | null
+	>(null);
 
 	useEffect(() => {
 		if (createNewAlertState !== null || deleteState !== null) {
 			mutate("/api/alerts-list");
-			setDeletePending(false);
-			setCreatePending(false);
+			setDeletePending(false); // Reset loading state after deletion
+			setCreatePending(false); // Reset loading state after creation
 		}
 	}, [createNewAlertState, deleteState]);
 
-    return (
+	const handleDelete = (password: string) => {
+		setDeletePending(true); // Start loading indicator
+		const formData = new FormData();
+		formData.append("allowedAlertId", selectedKeys.toString());
+		formData.append("password", password);
+		deleteFormAction(formData);
+		setIsConfirmationOpen(false);
+		setSelectedKeys([]);
+	};
+
+	const handleCreate = (password: string) => {
+		setCreatePending(true); // Start loading indicator
+		const formData = new FormData();
+		formData.append("body", body);
+		formData.append("modifier", modifier);
+		formData.append("password", password);
+		newAlertFormAction(formData);
+		setIsConfirmationOpen(false);
+		setBody("");
+		setModifier("BEGINS");
+	};
+
+	const confirmDelete = () => {
+		setPendingAction("delete");
+		setIsConfirmationOpen(true); // Open password modal after confirming delete
+	};
+
+	const confirmCreate = () => {
+		setPendingAction("create");
+		setIsConfirmationOpen(true); // Open password modal after confirming create
+	};
+
+	return (
 		<>
 			{shouldDelete || deletePending ? (
 				<div>
@@ -58,7 +98,7 @@ export default function AlertModal({ shouldDelete }: Props) {
 							deletePending ? null : <DeleteIcon size={20} />
 						}
 						className="bg-destructive text-primary-foreground"
-						isLoading={deletePending}
+						isLoading={deletePending} // Display loading indicator
 					>
 						מחיקה
 					</Button>
@@ -70,20 +110,10 @@ export default function AlertModal({ shouldDelete }: Props) {
 										מחיקה
 									</ModalHeader>
 									<ModalBody className="font-heebo">
-										<form
-											action={deleteFormAction}
-											id="deleteform"
-										>
-											<input
-												type="hidden"
-												name="allowedAlertId"
-												value={selectedKeys}
-											/>
-											<p>
-												האם אתה בטוח שברצונך למחוק את
-												הפילטרים שנבחרו?
-											</p>
-										</form>
+										<p>
+											האם אתה בטוח שברצונך למחוק את
+											הפילטרים שנבחרו?
+										</p>
 									</ModalBody>
 									<ModalFooter>
 										<Button
@@ -93,13 +123,11 @@ export default function AlertModal({ shouldDelete }: Props) {
 											ביטול
 										</Button>
 										<Button
+											color="primary"
 											className="bg-destructive text-primary-foreground font-heebo"
-											type="submit"
-											form="deleteform"
 											onPress={() => {
-												setDeletePending(true);
-												onClose();
-												setSelectedKeys([]);
+												confirmDelete();
+												onClose(); // Close the delete confirmation modal
 											}}
 										>
 											מחיקה
@@ -131,10 +159,7 @@ export default function AlertModal({ shouldDelete }: Props) {
 										פילטר חדש
 									</ModalHeader>
 									<ModalBody className="font-heebo">
-										<form
-											action={newAlertFormAction}
-											id="newalertform"
-										>
+										<form id="newalertform">
 											<Input
 												name="body"
 												label="תוכן"
@@ -235,14 +260,10 @@ export default function AlertModal({ shouldDelete }: Props) {
 										<Button
 											color="primary"
 											className="font-heebo"
-											onPress={() => {
-												setBody("");
-												setModifier("");
-												setCreatePending(true);
-												onClose();
-											}}
-											type="submit"
-											form="newalertform"
+												onPress={() => {
+													confirmCreate();
+													onClose(); // Close the delete confirmation modal
+												}}
 											isDisabled={
 												body.length === 0 ||
 												modifier.length === 0
@@ -257,6 +278,19 @@ export default function AlertModal({ shouldDelete }: Props) {
 					</Modal>
 				</div>
 			)}
+
+			{/* Password Confirmation Modal */}
+			<ConfirmationModal
+				isOpen={isConfirmationOpen}
+				onClose={() => setIsConfirmationOpen(false)}
+				onConfirm={(password) => {
+					if (pendingAction === "delete") {
+						handleDelete(password);
+					} else if (pendingAction === "create") {
+						handleCreate(password);
+					}
+				}}
+			/>
 		</>
 	);
 }

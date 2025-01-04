@@ -176,6 +176,28 @@ export default function EditSiteModal({ isOpen, onOpenChange }: Props) {
 												צפון
 											</Chip>
 										</SelectItem>
+										<SelectItem
+											key={"מרכז"}
+											textValue={"מרכז"}
+										>
+											<Chip
+												color={statusColorMap["מרכז"]}
+												variant="flat"
+											>
+												מרכז
+											</Chip>
+										</SelectItem>
+										<SelectItem
+											key={"דרום"}
+											textValue={"דרום"}
+										>
+											<Chip
+												color={statusColorMap["דרום"]}
+												variant="flat"
+											>
+												דרום
+											</Chip>
+										</SelectItem>
 									</Select>
 									<Input
 										name="siteIP"

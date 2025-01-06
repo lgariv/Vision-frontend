@@ -6,7 +6,6 @@ import MainNavbar from "@/components/main-navbar/navigation-bar";
 import { Pixelify_Sans, Heebo } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import Head from "next/head";
 
 const heebo = Heebo({
 	subsets: ["latin"],
@@ -40,12 +39,6 @@ export default function RootLayout({
 		>
 			<Analytics />
 			<SpeedInsights />
-			<Head>
-				<meta property="og:image" content="/preview.png" />
-				<meta property="og:image:type" content="image/png" />
-				<meta property="og:image:width" content="1901" />
-				<meta property="og:image:height" content="1026" />
-			</Head>
 			<body className={inter.className}>
 				<ThemeProvider
 					attribute="class"

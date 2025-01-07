@@ -93,8 +93,9 @@ export default function ConfirmationModal({
 								className="font-heebo"
 								type="submit"
 								isDisabled={password.length === 0 || isLoading}
+								isLoading={isLoading}
 							>
-								{isLoading ? "מאמת..." : "אישור"}
+								{isLoading ? "מאמת" : "אישור"}
 							</Button>
 						</ModalFooter>
 					</form>

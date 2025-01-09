@@ -26,9 +26,13 @@ export default function LastUpdatedFooter() {
 							?.data.find((item: any) => item.index == "current")
 							?.date!
 					)
-				);
+                );
+                const now = new Date();
+                now.setFullYear(dateObject.getFullYear());
+                now.setMonth(dateObject.getMonth());
+                now.setDate(dateObject.getDate());
                 setHumanDateFormat(
-                    humanizeDuration(Number(dateObject) - Number(nowDate), { // Convert dateObject and nowDate to numbers
+                    humanizeDuration(now.getTime() - dateObject.getTime(), {
                         language: "he",
                         largest: 2,
                     })

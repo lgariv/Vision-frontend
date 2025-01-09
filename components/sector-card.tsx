@@ -18,7 +18,7 @@ interface SectorCardProps {
 export default function SectorCard({ sectorNumber, sectorState, currentValue, previousValue, cardVariant }: SectorCardProps) {
 	let deltaDirection;
 	switch (true) {
-		case previousValue === undefined || previousValue.toString().length === 0:
+		case previousValue === undefined || Number.isNaN(previousValue) || previousValue.toString().length === 0:
 			deltaDirection = "none";
 			break;
 		case currentValue - previousValue > 0:
@@ -27,8 +27,11 @@ export default function SectorCard({ sectorNumber, sectorState, currentValue, pr
 		case currentValue - previousValue < 0:
 			deltaDirection = "negative";
 			break;
-		default:
+		case currentValue - previousValue == 0:
 			deltaDirection = "neutral";
+			break;
+		default:
+			deltaDirection = "none";
 			break;
 	}
 	const deltaValue = Math.abs(currentValue - previousValue);

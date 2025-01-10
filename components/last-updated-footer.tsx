@@ -8,7 +8,7 @@ import humanizeDuration from 'humanize-duration';
 export default function LastUpdatedFooter() {
     const { sitesData } = useSitesStore();
 
-    const [nowDate, setNowDate] = useState("");
+    const [nowDate, setNowDate] = useState<Date>(new Date());
     const [humanDateFormat, setHumanDateFormat] = useState("");
 
     useEffect(() => {
@@ -27,25 +27,27 @@ export default function LastUpdatedFooter() {
 							?.date!
 					)
                 );
-                const now = new Date();
-                now.setFullYear(dateObject.getFullYear());
-                now.setMonth(dateObject.getMonth());
-                now.setDate(dateObject.getDate());
+                dateObject.setFullYear(nowDate.getFullYear());
+                dateObject.setMonth(nowDate.getMonth());
+                dateObject.setDate(nowDate.getDate() - 1);
+                
                 setHumanDateFormat(
-                    humanizeDuration(now.getTime() - dateObject.getTime(), {
-                        language: "he",
-                        largest: 2,
-                    })
-                );
+					humanizeDuration(dateObject.getTime() - nowDate.getTime(), {
+						language: "he",
+                        largest: 4,
+                        // units: ["d", "h", "m"],
+						round: true,
+					})
+				);
             }
         }
 	}, [sitesData, nowDate]);
     
     useEffect(() => {
-        setNowDate(Date.now().toString().slice(0, -3) + "000");
+        setNowDate(new Date(Date.now()));
 
         const kiwi = setInterval(() => {
-            setNowDate(Date.now().toString().slice(0, -3) + "000");
+            setNowDate(new Date(Date.now()));
         }, 1000);
         
         return function cleanup() {

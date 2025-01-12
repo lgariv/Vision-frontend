@@ -31,11 +31,15 @@ export default function LastUpdatedFooter() {
                 dateObject.setMonth(nowDate.getMonth());
                 dateObject.setDate(nowDate.getDate() - 1);
                 
+                let duration = nowDate.getTime() - dateObject.getTime();
+                if (duration > 24 * 60 * 60 * 1000) {
+                    duration -= 24 * 60 * 60 * 1000;
+                }
+
                 setHumanDateFormat(
-					humanizeDuration(dateObject.getTime() - nowDate.getTime(), {
+					humanizeDuration(duration, {
 						language: "he",
                         largest: 4,
-                        // units: ["d", "h", "m"],
 						round: true,
 					})
 				);

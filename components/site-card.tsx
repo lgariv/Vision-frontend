@@ -101,7 +101,7 @@ export default function SiteCard({ siteName, site, variant, onClick }: SiteCardP
 									)
 									?.rr?.data.map(
 										(item: any, index: number) => {
-											if (item.sectorId == cell.sectorId)
+											if (item.sector == cell.sector)
 												return item["value"];
 										}
 									)

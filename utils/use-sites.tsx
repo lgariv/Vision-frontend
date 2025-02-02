@@ -11,6 +11,6 @@ export function useSites() {
         revalidateOnReconnect: true,
         refreshWhenHidden: true,
         refreshWhenOffline: true,
-        suspense: true,
+        // suspense: true,
     });
 }

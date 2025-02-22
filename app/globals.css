@@ -68,3 +68,16 @@
     background: 000;
     outline-offset: 1px;
 }
+
+
+
+
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}

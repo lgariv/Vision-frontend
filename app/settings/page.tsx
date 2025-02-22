@@ -70,7 +70,7 @@ export default function Settings({ searchParams }: Props) {
 									העדפות
 								</Link>
 							</TabsTrigger>
-\							<TabsTrigger value="sitelist" asChild>
+							<TabsTrigger value="sitelist" asChild>
 								<Link
 									href={{ query: { tab: "sitelist" } }}
 									prefetch={true}
@@ -84,8 +84,9 @@ export default function Settings({ searchParams }: Props) {
 								<CardHeader>
 									<CardTitle>נתון עיקרי</CardTitle>
 									<CardDescription>
-										בחירת הנתון המנחה בתצוגת המידע הראשית בלוח
-										המחוונים ובמפה. העדפה זו נשמרת רק לחשבון זה.
+										בחירת הנתון המנחה בתצוגת המידע הראשית
+										בלוח המחוונים ובמפה. העדפה זו נשמרת רק
+										לחשבון זה.
 									</CardDescription>
 								</CardHeader>
 								<CardContent className="space-y-2">
@@ -116,7 +117,9 @@ export default function Settings({ searchParams }: Props) {
 										className="text-sm rounded-md"
 										color="primary"
 										onPress={() => {
-											setPrimaryValue(pendingPrimaryValue);
+											setPrimaryValue(
+												pendingPrimaryValue
+											);
 										}}
 									>
 										שמור שינויים
@@ -129,7 +132,8 @@ export default function Settings({ searchParams }: Props) {
 								<CardHeader>
 									<CardTitle>חשבונות</CardTitle>
 									<CardDescription>
-										הוסף משתמשים או בצע שינויים בהרשאות קיימות.
+										הוסף משתמשים או בצע שינויים בהרשאות
+										קיימות.
 									</CardDescription>
 								</CardHeader>
 								<CardContent className="space-y-2">
@@ -162,8 +166,8 @@ export default function Settings({ searchParams }: Props) {
 									<CardHeader>
 										<CardTitle>התראות מאופשרות</CardTitle>
 										<CardDescription>
-											בצע שינויים ברשימת ההתראות שלא פוגעות
-											בפעילות האתר.
+											בצע שינויים ברשימת ההתראות שלא
+											פוגעות בפעילות האתר.
 										</CardDescription>
 									</CardHeader>
 									<CardContent className="space-y-2">

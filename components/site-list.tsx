@@ -1,6 +1,6 @@
 "use client";
 
-import Loading from "@/app/Loading";
+import Loading from "@/components/site-list-skeleton";
 import SiteCard from "@/components/site-card";
 import { useSitesStore } from "@/stores/sites-store";
 import { useEffect, useState } from "react";

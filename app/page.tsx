@@ -5,6 +5,7 @@ import LastUpdatedFooter from "@/components/last-updated-footer";
 import { usePreferencesStore } from "@/stores/preferences-store";
 import { useRouter } from "next/navigation";
 import MainNavbar from "@/components/main-navbar/navigation-bar";
+import { useEffect } from "react";
 
 // export const dynamic = "force-dynamic";
 // export const revalidate = false;
@@ -18,10 +19,13 @@ type Props = {};
 export default function Dashboard(props: Props) {
 	const router = useRouter();
 	const { isOnboarded, setOnboarded } = usePreferencesStore();
+	const hasHydrated = usePreferencesStore((state) => state._hasHydrated);
 
-	if (!isOnboarded) {
-		router.push("/onboarding");
-	}
+	useEffect(() => {
+		if (hasHydrated && isOnboarded === undefined) {
+			router.push("/onboarding");
+		}
+	}, [isOnboarded, hasHydrated]);
 
 	return (
 		<>

@@ -1,4 +1,4 @@
-
+import MainNavbar from "@/components/main-navbar/navigation-bar";
 import LastUpdatedFooter from "@/components/last-updated-footer";
 import dynamic from "next/dynamic";
 
@@ -10,10 +10,13 @@ type Props = {};
 
 const MapPage = (props: Props) => {
   return (
-    <main className="w-full h-[calc(100vh_-_64px)] overflow-hidden font-heebo" dir="ltr">
-      <DynamicMap />
-			<LastUpdatedFooter />
-    </main>
+    <>
+      <MainNavbar />
+      <main className="w-full h-[calc(100vh_-_64px)] overflow-hidden font-heebo" dir="ltr">
+        <DynamicMap />
+        <LastUpdatedFooter />
+      </main>
+    </>
   );
 };
 

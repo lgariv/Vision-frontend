@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
-import MainNavbar from "@/components/main-navbar/navigation-bar";
 import { Pixelify_Sans, Heebo } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -48,7 +47,6 @@ export default function RootLayout({
 					enableSystem
 					themes={["light", "dark"]}
 				>
-					<MainNavbar />
 					{modal}
 					{children}
 				</ThemeProvider>

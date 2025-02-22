@@ -6,6 +6,8 @@ type PreferencesStore = {
 	setPrimaryValue: (value: "UEs" | "RR" | undefined) => void;
 	location: { [key: string]: string };
 	setLocation: (key: string, value: string) => void;
+	isOnboarded: boolean;
+	setOnboarded: (value: boolean) => void;
 };
 
 export const usePreferencesStore = create<PreferencesStore>()(
@@ -18,6 +20,10 @@ export const usePreferencesStore = create<PreferencesStore>()(
 			location: {},
 			setLocation: (key: string, value: string) => {
 				set(() => ({ location: { ...get().location, [key]: value } }));
+			},
+			isOnboarded: false,
+			setOnboarded: (value: boolean) => {
+				set(() => ({ isOnboarded: value }));
 			},
 		}),
 		{

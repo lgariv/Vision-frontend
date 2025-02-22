@@ -1,8 +1,12 @@
+"use client";
+
 import SiteList from "@/components/site-list";
 import LastUpdatedFooter from "@/components/last-updated-footer";
+import { usePreferencesStore } from "@/stores/preferences-store";
+import { useRouter } from "next/navigation";
 
 // export const dynamic = "force-dynamic";
-export const revalidate = 30;
+// export const revalidate = false;
 
 type Props = {};
 
@@ -11,6 +15,13 @@ type Props = {};
  * @returns The rendered Dashboard component.
  */
 export default function Dashboard(props: Props) {
+	const router = useRouter();
+	const { isOnboarded, setOnboarded } = usePreferencesStore();
+
+	if (!isOnboarded) {
+		router.push("/onboarding");
+	}
+
 	return (
 		<div className="flex min-h-[calc(100vh-4rem)] w-full flex-col font-heebo">
 			<main className="flex flex-1 flex-col gap-2 p-2 md:gap-4 md:p-4">

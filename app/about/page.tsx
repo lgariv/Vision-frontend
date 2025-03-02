@@ -116,7 +116,7 @@ const AboutPage = (props: Props) => {
 							</Button>
 							<Button
 								as="a"
-								href="https://www.linkedin.com/in/lavie-g-3a66a21ba/"
+								href="https://www.linkedin.com/in/lavie-gariv/"
 								startContent={<Linkedin />}
 								className="font-bold font-sans"
 								style={{

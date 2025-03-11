@@ -114,4 +114,4 @@ This project is licensed under the **GNU General Public License v3.0 (GPL-3.0)**
 
 For further information or inquiries, reach out:
 
-**LinkedIn**: [Lavie Gariv](https://www.linkedin.com/in/lavie-g-3a66a21ba/)
+**LinkedIn**: [Lavie Gariv](https://www.linkedin.com/in/lavie-gariv/)

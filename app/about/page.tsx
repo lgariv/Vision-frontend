@@ -41,7 +41,7 @@ const AboutPage = (props: Props) => {
 								</h2>
 							</div>
 							<Image
-								src="https://media.licdn.com/dms/image/v2/D4E03AQHA8OANx3jqDQ/profile-displayphoto-shrink_800_800/B4EZOvY7Z3HEAc-/0/1733814368868?e=1740614400&amp;v=beta&amp;t=5b5Wk0y8iXWTHqmOcdOUx9ygzW0k-DVeeAQHkrcvQJ4"
+								src="https://media.licdn.com/dms/image/v2/D4E03AQHA8OANx3jqDQ/profile-displayphoto-shrink_800_800/B4EZOvY7Z3HEAc-/0/1733814368868?e=1747267200&v=beta&t=Ma88o812e6QdCucW7A5uqXwYI9CHT8ZYCJZAfQT8cA0"
 								alt="Vision Creator"
 								className="w-24 h-24 md:w-32 md:h-32 rounded-full object-cover"
 								width={128}

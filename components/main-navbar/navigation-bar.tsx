@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import {
@@ -18,6 +19,7 @@ import { useSitesStore } from "@/stores/sites-store";
 import { Button } from "@nextui-org/react";
 import { revalidateEvetything } from "@/actions/revalidate"
 import { mutate } from "swr";
+import { DashboardViewToggle } from "@/components/dashboard-view-toggle";
 	
 /**
  * Renders the navigation bar component.
@@ -25,6 +27,7 @@ import { mutate } from "swr";
  */
 export default function Navbar() {
     const { filterString, setFilterString } = useSitesStore();
+    const pathname = usePathname();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     // Add effect to control body scroll
@@ -63,6 +66,9 @@ export default function Navbar() {
 
                 {/* Desktop Controls */}
                 <div className="hidden md:flex items-center gap-4">
+					{pathname === "/" && (
+						<DashboardViewToggle showMetric />
+					)}
                     <Select dir="rtl" value={filterString ?? "הכל"} onValueChange={(value: "הכל" | "צפון" | "מרכז" | "דרום" | "כלים ניידים") => {
                         setFilterString(value);
                     }}>
@@ -103,6 +109,9 @@ export default function Navbar() {
 							<NavItem href="/about" onClick={() => setIsMenuOpen(false)}>אודות</NavItem>
 						</div>
 						<div className="space-y-4">
+							{pathname === "/" && (
+								<DashboardViewToggle />
+							)}
 							<Select dir="rtl" value={filterString ?? "הכל"} onValueChange={(value: "הכל" | "צפון" | "מרכז" | "דרום" | "כלים ניידים") => {
 								setFilterString(value);
 							}}>

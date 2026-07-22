@@ -41,7 +41,7 @@ export default function SectorCard({ sectorNumber, sectorState, currentValue, pr
 				</CardTitle>
 			</CardHeader>
 			<CardContent className="font-semibold my-[2px] mx-[4px] p-1 -mt-2">
-				<div className="flex items-center justify-between gap-1">
+				<div className="flex items-center justify-end">
 					<p className="text-md font-bold tabular-nums">
 						{sectorState === "enabled"
 							? hasCurrentValue ? currentNumber : "—"
@@ -49,14 +49,16 @@ export default function SectorCard({ sectorNumber, sectorState, currentValue, pr
 							? "נעול"
 							: "למטה"}
 					</p>
+				</div>
+				<div className="mt-1 flex h-5 items-center justify-center">
 					{hasPreviousValue && delta !== 0 && sectorState === "enabled" && (
 						<span
 							data-trend={delta > 0 ? "up" : "down"}
 							title={`קודם: ${previousNumber} ${metricLabel}${deltaPercent === null ? "" : ` · שינוי של ${deltaPercent}%`}`}
 							aria-label={`שינוי מהמדידה הקודמת: ${delta > 0 ? "+" : ""}${delta}${metricLabel}${deltaPercent === null ? "" : `, ${deltaPercent}%`}`}
-							className="inline-flex shrink-0 items-center gap-0.5 rounded-md border border-sky-500/20 bg-sky-500/10 px-1 py-0.5 text-[11px] font-bold text-sky-600 dark:text-sky-300"
+							className="inline-flex h-5 w-full items-center justify-center gap-1 rounded-md border border-sky-400/30 bg-sky-500/15 px-1.5 text-xs font-bold text-sky-700 dark:text-sky-200"
 						>
-							<TrendIcon size={12} strokeWidth={2.5} aria-hidden="true" />
+							<TrendIcon size={13} strokeWidth={2.5} aria-hidden="true" />
 							<span className="tabular-nums">{delta > 0 ? "+" : ""}{delta}</span>
 						</span>
 					)}

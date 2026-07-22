@@ -8,10 +8,8 @@ import { useSites } from "@/utils/use-sites";
 import { Button, Modal, useDisclosure } from "@nextui-org/react";
 import Content from "./map/modal-data/content";
 import { SearchX } from "lucide-react";
-import { LayoutGrid, Rows3 } from "lucide-react";
 import { usePreferencesStore } from "@/stores/preferences-store";
 import CompactSiteRow from "./compact-site-row";
-import { cn } from "@/lib/utils";
 
 /**
  * Renders a list of sites using data fetched from the "/api/sites-data" endpoint.
@@ -23,7 +21,7 @@ import { cn } from "@/lib/utils";
 export default function SiteList() {
 	const { sitesData, setSitesData, searchString, filterString, setSearchString, setFilterString } = useSitesStore();
 	const { data: sites, isLoading } = useSites();
-	const { dashboardView, setDashboardView, primaryValue } = usePreferencesStore();
+	const { dashboardView } = usePreferencesStore();
 
 	const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
@@ -89,33 +87,6 @@ export default function SiteList() {
 
 	return (
 		<>
-			<div className="col-span-full flex flex-wrap items-center justify-start gap-3" dir="rtl">
-				<div className="flex flex-wrap items-center gap-x-2 text-xs font-medium text-muted-foreground">
-					<span>{sitesData?.length ?? sites?.length ?? 0} אתרים</span>
-					<span aria-hidden="true">·</span>
-					<span>מדד: {primaryValue === "RR" ? "רעש (dBm)" : "משתמשים (UEs)"}</span>
-				</div>
-				<div className="inline-flex rounded-lg border bg-secondary/70 p-1 dark:bg-card" aria-label="תצוגת לוח מחוונים">
-					<button
-						type="button"
-						aria-pressed={dashboardView === "cards"}
-						onClick={() => setDashboardView("cards")}
-						className={cn("inline-flex items-center gap-2 rounded-md px-3 py-1.5 text-sm font-medium transition-colors", dashboardView === "cards" ? "bg-background shadow-sm" : "text-muted-foreground hover:text-foreground")}
-					>
-						<LayoutGrid size={16} aria-hidden="true" />
-						כרטיסים
-					</button>
-					<button
-						type="button"
-						aria-pressed={dashboardView === "compact"}
-						onClick={() => setDashboardView("compact")}
-						className={cn("inline-flex items-center gap-2 rounded-md px-3 py-1.5 text-sm font-medium transition-colors", dashboardView === "compact" ? "bg-background shadow-sm" : "text-muted-foreground hover:text-foreground")}
-					>
-						<Rows3 size={16} aria-hidden="true" />
-						קומפקטי
-					</button>
-				</div>
-			</div>
 			<Modal
 				backdrop="blur"
 				isOpen={isOpen}

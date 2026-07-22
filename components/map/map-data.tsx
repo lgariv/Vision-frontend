@@ -8,7 +8,8 @@ import {
     Tooltip,
     useMap,
 } from "react-leaflet";
-import { LatLngExpression } from "leaflet";
+import { divIcon, LatLngExpression, point } from "leaflet";
+import MarkerClusterGroup from "react-leaflet-cluster";
 
 import { generateMapIcon } from "./icons";
 import { useTheme } from "next-themes";
@@ -21,6 +22,16 @@ import {
 import Content from "./modal-data/content";
 
 type Props = {};
+
+const createClusterIcon = (cluster: { getChildCount: () => number }) => {
+	const count = cluster.getChildCount();
+
+	return divIcon({
+		html: `<span>${count}</span>`,
+		className: "vision-marker-cluster",
+		iconSize: point(44, 44, true),
+	});
+};
 
 /**
  * Renders a map data layer component.
@@ -84,9 +95,16 @@ const MapDataLayer = (props: Props) => {
                 <Content data={modalDataToDisplay} />
             </Modal>
             {/* only sites that have data object contain gps location */}
-            {sitesData
-                ?.filter((site: any) => typeof site.data === "object")
-                .map((siteData: any, index: number) => {
+            <MarkerClusterGroup
+				chunkedLoading
+				showCoverageOnHover={false}
+				spiderfyOnMaxZoom
+				maxClusterRadius={48}
+				iconCreateFunction={createClusterIcon}
+			>
+				{sitesData
+					?.filter((site: any) => typeof site.data === "object")
+					.map((siteData: any) => {
                     const isPortable: boolean = siteData.isPortable;
 
                     const currentData = siteData.data?.find((item: any) => item.index === "current")?.gpsData?.data?.[0];
@@ -100,11 +118,11 @@ const MapDataLayer = (props: Props) => {
                     const status: string = siteData.status;
                     
                     // if (!isPortable) { // TODO: Add different icon for portable sites
-                        return (
-                            <div key={siteData.displayName}>
-                                <Marker
-                                    key={siteData.displayName}
+						return (
+							<Marker
+								key={siteData.amosName}
                                     position={pinLocation}
+								title={displayName}
                                     icon={
                                         resolvedTheme === "light"
                                         ? generateMapIcon("notPortable", status === "admin" ? "violet" : status === "on" ? "green" : status === "alert" ? "gold" : "red", "light")
@@ -116,14 +134,13 @@ const MapDataLayer = (props: Props) => {
                                             onOpen();
                                         },
                                     }}
-                                >
-                                    <Tooltip sticky className="dark:text-white dark:bg-card">{displayName}</Tooltip>
-                                </Marker>
-                            </div>
+							>
+								<Tooltip sticky className="dark:text-white dark:bg-card">{displayName}</Tooltip>
+							</Marker>
                         );
                     // }
-                })
-            }
+					})}
+			</MarkerClusterGroup>
         </>
     );
 };

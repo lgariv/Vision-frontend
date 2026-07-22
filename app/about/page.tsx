@@ -80,7 +80,7 @@ const AboutPage = (props: Props) => {
 									ויכולת פריסה מהירה.
 								</li>
 								<li>
-									<strong>Supabase</strong>: מסד נתונים מבוסס{" "}
+									<strong>Neon Postgres</strong>: מסד נתונים מבוסס{" "}
 									<strong>PostgreSQL</strong> שמבטיח אחסון
 									וניהול מידע פשוט ומהיר בצורה מאובטחת.
 								</li>

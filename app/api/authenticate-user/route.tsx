@@ -2,14 +2,6 @@
 export const dynamic = "force-dynamic";
 
 import { NextResponse } from "next/server";
-import { createClient } from '@supabase/supabase-js';
-
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-if (!supabaseUrl || !supabaseKey) {
-    throw new Error("Missing Supabase URL or Key");
-}
-const supabase = createClient(supabaseUrl, supabaseKey);
 
 export async function POST(request: Request) {
     const body = await request.json();
@@ -19,13 +11,18 @@ export async function POST(request: Request) {
 			{ status: 400 }
 		);
 	}
-    const { data, error } = await supabase.auth.signInWithPassword({
-		email: "admin@admin.com",
-		password: body.password,
-	});
-    const { user, session } = data;
-    if (error) {
-        return NextResponse.json({ error: error.message }, { status: 401 });
-    }
-    return NextResponse.json({ user, session }, { status: 200 });
+	const response = await fetch(
+		`${process.env.NEXT_PUBLIC_API_IP}/authenticate`,
+		{
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({ password: body.password }),
+			cache: "no-store",
+		},
+	);
+
+	const result = await response.json();
+	return NextResponse.json(result, { status: response.status });
 }

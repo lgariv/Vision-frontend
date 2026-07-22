@@ -1,4 +1,4 @@
-import { ArrowUp, ArrowDown } from "lucide-react";
+import { Minus, TrendingDown, TrendingUp } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 
@@ -17,31 +17,21 @@ interface SectorCardProps {
  * @returns {JSX.Element} The rendered component.
  */
 export default function SectorCard({ sectorNumber, sectorState, currentValue, previousValue, cardVariant, metricLabel }: SectorCardProps) {
-	let deltaDirection;
-	switch (true) {
-		case previousValue === undefined || Number.isNaN(previousValue) || previousValue.toString().length === 0:
-			deltaDirection = "none";
-			break;
-		case currentValue - previousValue > 0:
-			deltaDirection = "positive";
-			break;
-		case currentValue - previousValue < 0:
-			deltaDirection = "negative";
-			break;
-		case currentValue - previousValue == 0:
-			deltaDirection = "neutral";
-			break;
-		default:
-			deltaDirection = "none";
-			break;
-	}
-	const deltaValue = Math.abs(currentValue - previousValue);
+	const currentNumber = Number(Array.isArray(currentValue) ? currentValue[0] : currentValue);
+	const previousNumber = Number(Array.isArray(previousValue) ? previousValue[0] : previousValue);
+	const hasCurrentValue = Number.isFinite(currentNumber);
+	const hasPreviousValue = Number.isFinite(previousNumber) && previousValue?.toString().length > 0;
+	const delta = hasPreviousValue ? currentNumber - previousNumber : 0;
+	const deltaPercent = hasPreviousValue && previousNumber !== 0
+		? Math.round((delta / Math.abs(previousNumber)) * 100)
+		: null;
+	const TrendIcon = delta > 0 ? TrendingUp : delta < 0 ? TrendingDown : Minus;
 
 	return (
 		<Card
 			className={
 				sectorState === "disabled"
-					? "flex flex-col relative border-[1.5px] shadow-lg shadow-red-400/40 dark:shadow-none border-red-500/40 dark:border-red-700ֿ/40 bg-red-500/40"
+					? "flex flex-col relative border-[1.5px] shadow-lg shadow-red-400/40 dark:shadow-none border-red-500/40 dark:border-red-700/40 bg-red-500/40"
 					: `flex flex-col relative border-[1.5px] shadow-lg bg-card dark:bg-secondary/50`
 			}
 		>
@@ -50,46 +40,31 @@ export default function SectorCard({ sectorNumber, sectorState, currentValue, pr
 					סקטור {sectorNumber}
 				</CardTitle>
 			</CardHeader>
-			<CardContent className="flex flex-row font-semibold items-center justify-between my-[2px] mx-[4px] p-1 -mt-2">
+			<CardContent className="font-semibold my-[2px] mx-[4px] p-1 -mt-2">
 				<div className="flex items-baseline gap-1">
 					<p className="text-md font-bold tabular-nums">
 						{sectorState === "enabled"
-							? currentValue!
+							? hasCurrentValue ? currentNumber : "—"
 							: sectorState === "locked"
 							? "נעול"
 							: "למטה"}
 					</p>
-					{sectorState === "enabled" && (
-						<span className="text-[10px] font-medium text-muted-foreground">{metricLabel}</span>
-					)}
 				</div>
-				{deltaDirection !== "none" && (
-					<div
-						title="שינוי מהמדידה הקודמת"
-						aria-label={`שינוי מהמדידה הקודמת: ${deltaValue}`}
-						className={`inline-flex self-end ${
-							deltaDirection === "positive"
-								? "text-green-400 dark:text-green-600"
-								: deltaDirection === "negative"
-								? "text-red-400 dark:text-red-600"
-								: "text-neutral-400 dark:text-neutral-600"
-						}`}
+				{hasPreviousValue && sectorState === "enabled" && (
+					<p
+						data-trend={delta > 0 ? "up" : delta < 0 ? "down" : "flat"}
+						title="מגמה לעומת המדידה הקודמת"
+						aria-label={`שינוי מהמדידה הקודמת: ${delta > 0 ? "+" : ""}${delta}${metricLabel}${deltaPercent === null ? "" : `, ${deltaPercent}%`}`}
+						className="mt-1 flex items-center gap-1 text-[10px] font-normal text-muted-foreground"
 					>
-						{deltaDirection === "negative" ? (
-							<ArrowDown
-								className="py-1 -mt-[1px] -me-1"
-								size={24}
-								strokeWidth={3}
-							/>
-						) : (
-							<ArrowUp
-								className="py-1 -mt-[1px] -me-1"
-								size={24}
-								strokeWidth={3}
-							/>
-						)}
-						<p className="text-md">{deltaValue}</p>
-					</div>
+						<span>קודם: <span className="tabular-nums">{previousNumber}</span></span>
+						<span aria-hidden="true">·</span>
+						<TrendIcon size={12} strokeWidth={2} aria-hidden="true" />
+						<span className="font-medium tabular-nums">
+							{delta > 0 ? "+" : ""}{delta}
+							{deltaPercent !== null && <span className="ms-1">({deltaPercent}%)</span>}
+						</span>
+					</p>
 				)}
 			</CardContent>
 		</Card>

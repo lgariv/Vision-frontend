@@ -10,6 +10,8 @@ type PreferencesStore = {
 	setLocation: (key: string, value: string) => void;
 	isOnboarded: boolean | undefined;
 	setOnboarded: (value: boolean) => void;
+	dashboardView: "cards" | "compact";
+	setDashboardView: (value: "cards" | "compact") => void;
 };
 
 export const usePreferencesStore = create<PreferencesStore>()(
@@ -32,6 +34,10 @@ export const usePreferencesStore = create<PreferencesStore>()(
 			isOnboarded: undefined,
 			setOnboarded: (value: boolean) => {
 				set(() => ({ isOnboarded: value }));
+			},
+			dashboardView: "cards",
+			setDashboardView: (value) => {
+				set(() => ({ dashboardView: value }));
 			},
 		}),
 		{

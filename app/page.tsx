@@ -19,7 +19,7 @@ type Props = {};
  */
 export default function Dashboard(props: Props) {
 	const router = useRouter();
-	const { isOnboarded, setOnboarded } = usePreferencesStore();
+	const { isOnboarded } = usePreferencesStore();
 	const hasHydrated = usePreferencesStore((state) => state._hasHydrated);
 
 	useEffect(() => {

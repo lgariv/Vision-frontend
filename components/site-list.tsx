@@ -8,6 +8,10 @@ import { useSites } from "@/utils/use-sites";
 import { Button, Modal, useDisclosure } from "@nextui-org/react";
 import Content from "./map/modal-data/content";
 import { SearchX } from "lucide-react";
+import { LayoutGrid, Rows3 } from "lucide-react";
+import { usePreferencesStore } from "@/stores/preferences-store";
+import CompactSiteRow from "./compact-site-row";
+import { cn } from "@/lib/utils";
 
 /**
  * Renders a list of sites using data fetched from the "/api/sites-data" endpoint.
@@ -19,6 +23,7 @@ import { SearchX } from "lucide-react";
 export default function SiteList() {
 	const { sitesData, setSitesData, searchString, filterString, setSearchString, setFilterString } = useSitesStore();
 	const { data: sites, isLoading } = useSites();
+	const { dashboardView, setDashboardView } = usePreferencesStore();
 
 	const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
@@ -84,6 +89,31 @@ export default function SiteList() {
 
 	return (
 		<>
+			<div className="col-span-full flex items-center justify-between gap-3" dir="rtl">
+				<p className="text-sm font-medium text-muted-foreground">
+					{sitesData?.length ?? sites?.length ?? 0} אתרים
+				</p>
+				<div className="inline-flex rounded-lg border bg-secondary/70 p-1 dark:bg-card" aria-label="תצוגת לוח מחוונים">
+					<button
+						type="button"
+						aria-pressed={dashboardView === "cards"}
+						onClick={() => setDashboardView("cards")}
+						className={cn("inline-flex items-center gap-2 rounded-md px-3 py-1.5 text-sm font-medium transition-colors", dashboardView === "cards" ? "bg-background shadow-sm" : "text-muted-foreground hover:text-foreground")}
+					>
+						<LayoutGrid size={16} aria-hidden="true" />
+						כרטיסים
+					</button>
+					<button
+						type="button"
+						aria-pressed={dashboardView === "compact"}
+						onClick={() => setDashboardView("compact")}
+						className={cn("inline-flex items-center gap-2 rounded-md px-3 py-1.5 text-sm font-medium transition-colors", dashboardView === "compact" ? "bg-background shadow-sm" : "text-muted-foreground hover:text-foreground")}
+					>
+						<Rows3 size={16} aria-hidden="true" />
+						קומפקטי
+					</button>
+				</div>
+			</div>
 			<Modal
 				backdrop="blur"
 				isOpen={isOpen}
@@ -130,18 +160,19 @@ export default function SiteList() {
 					.sort((a: any, b: any) => {
 						return b.success - a.success;
 					})
-					.map((site: SiteData, index: number) => (
-						<SiteCard
-							onClick={(e: any) => {
+					.map((site: SiteData, index: number) => {
+						const openSite = () => {
 								setSiteDataMapIndex(index);
 								setModalDataToDisplay(site);
 								onOpen();
-							}}
-							siteName={site.displayName}
-							site={site}
-							key={site.displayName}
-						/>
-					))
+						};
+
+						return dashboardView === "compact" ? (
+							<CompactSiteRow key={site.amosName} site={site} onClick={openSite} />
+						) : (
+							<SiteCard key={site.amosName} onClick={openSite} siteName={site.displayName} site={site} />
+						);
+					})
 			) : (
 				<Loading />
 			)}

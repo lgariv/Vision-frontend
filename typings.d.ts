@@ -147,7 +147,7 @@ type UePrintAdmitted = {
 
 type UePrintAdmittedDatum = {
 	sectorId: string;
-	cellID: string;
-	ueS: string;
+	cellId: string;
+	"ue's": string;
 	bearers: string;
 };

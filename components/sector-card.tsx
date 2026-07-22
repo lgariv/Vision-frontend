@@ -1,4 +1,4 @@
-import { Minus, TrendingDown, TrendingUp } from "lucide-react";
+import { TrendingDown, TrendingUp } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 
@@ -25,7 +25,7 @@ export default function SectorCard({ sectorNumber, sectorState, currentValue, pr
 	const deltaPercent = hasPreviousValue && previousNumber !== 0
 		? Math.round((delta / Math.abs(previousNumber)) * 100)
 		: null;
-	const TrendIcon = delta > 0 ? TrendingUp : delta < 0 ? TrendingDown : Minus;
+	const TrendIcon = delta > 0 ? TrendingUp : TrendingDown;
 
 	return (
 		<Card
@@ -41,7 +41,7 @@ export default function SectorCard({ sectorNumber, sectorState, currentValue, pr
 				</CardTitle>
 			</CardHeader>
 			<CardContent className="font-semibold my-[2px] mx-[4px] p-1 -mt-2">
-				<div className="flex items-baseline gap-1">
+				<div className="flex items-center justify-between gap-1">
 					<p className="text-md font-bold tabular-nums">
 						{sectorState === "enabled"
 							? hasCurrentValue ? currentNumber : "—"
@@ -49,23 +49,18 @@ export default function SectorCard({ sectorNumber, sectorState, currentValue, pr
 							? "נעול"
 							: "למטה"}
 					</p>
-				</div>
-				{hasPreviousValue && sectorState === "enabled" && (
-					<p
-						data-trend={delta > 0 ? "up" : delta < 0 ? "down" : "flat"}
-						title="מגמה לעומת המדידה הקודמת"
-						aria-label={`שינוי מהמדידה הקודמת: ${delta > 0 ? "+" : ""}${delta}${metricLabel}${deltaPercent === null ? "" : `, ${deltaPercent}%`}`}
-						className="mt-1 flex items-center gap-1 text-[10px] font-normal text-muted-foreground"
-					>
-						<span>קודם: <span className="tabular-nums">{previousNumber}</span></span>
-						<span aria-hidden="true">·</span>
-						<TrendIcon size={12} strokeWidth={2} aria-hidden="true" />
-						<span className="font-medium tabular-nums">
-							{delta > 0 ? "+" : ""}{delta}
-							{deltaPercent !== null && <span className="ms-1">({deltaPercent}%)</span>}
+					{hasPreviousValue && delta !== 0 && sectorState === "enabled" && (
+						<span
+							data-trend={delta > 0 ? "up" : "down"}
+							title={`קודם: ${previousNumber} ${metricLabel}${deltaPercent === null ? "" : ` · שינוי של ${deltaPercent}%`}`}
+							aria-label={`שינוי מהמדידה הקודמת: ${delta > 0 ? "+" : ""}${delta}${metricLabel}${deltaPercent === null ? "" : `, ${deltaPercent}%`}`}
+							className="inline-flex shrink-0 items-center gap-0.5 text-[10px] font-medium text-muted-foreground/80"
+						>
+							<TrendIcon size={11} strokeWidth={2} aria-hidden="true" />
+							<span className="tabular-nums">{delta > 0 ? "+" : ""}{delta}</span>
 						</span>
-					</p>
-				)}
+					)}
+				</div>
 			</CardContent>
 		</Card>
 	);

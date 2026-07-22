@@ -23,7 +23,7 @@ import { cn } from "@/lib/utils";
 export default function SiteList() {
 	const { sitesData, setSitesData, searchString, filterString, setSearchString, setFilterString } = useSitesStore();
 	const { data: sites, isLoading } = useSites();
-	const { dashboardView, setDashboardView } = usePreferencesStore();
+	const { dashboardView, setDashboardView, primaryValue } = usePreferencesStore();
 
 	const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
@@ -90,9 +90,11 @@ export default function SiteList() {
 	return (
 		<>
 			<div className="col-span-full flex items-center justify-between gap-3" dir="rtl">
-				<p className="text-sm font-medium text-muted-foreground">
-					{sitesData?.length ?? sites?.length ?? 0} אתרים
-				</p>
+				<div className="flex flex-wrap items-center gap-x-2 text-xs font-medium text-muted-foreground">
+					<span>{sitesData?.length ?? sites?.length ?? 0} אתרים</span>
+					<span aria-hidden="true">·</span>
+					<span>מדד: {primaryValue === "RR" ? "רעש (dBm)" : "משתמשים (UEs)"}</span>
+				</div>
 				<div className="inline-flex rounded-lg border bg-secondary/70 p-1 dark:bg-card" aria-label="תצוגת לוח מחוונים">
 					<button
 						type="button"

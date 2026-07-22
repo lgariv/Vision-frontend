@@ -55,9 +55,6 @@ export default function SiteCard({ siteName, site, variant, onClick }: SiteCardP
 						{siteName}
 					</CardTitle>
 					<div className="flex items-center gap-2">
-						<span className="text-[10px] font-medium text-muted-foreground">
-							{primaryValue === "RR" ? "רעש · dBm" : "משתמשים · UEs"}
-						</span>
 					{(() => {
 						switch (mode) {
 							case "on":

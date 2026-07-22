@@ -28,6 +28,7 @@ export default function SiteCard({ siteName, site, variant, onClick }: SiteCardP
 	const { primaryValue } = usePreferencesStore();
 
 	var cardVariant = variant || "default";
+	const latestDate = site.data?.[0]?.date;
 
 	var mode;
 	switch (site.success == true) {
@@ -77,10 +78,19 @@ export default function SiteCard({ siteName, site, variant, onClick }: SiteCardP
 					})()}
 				</CardHeader>
 			)}
-			{process.env.NODE_ENV === "development" &&
-				`${site.data[0]?.date.split("T")[0]}, ${
-					site.data[0]?.date.split("T")[1].split(".")[0]
-				}`}
+			{process.env.NODE_ENV === "development" && latestDate && (
+				<span className="px-4 text-xs text-muted-foreground">
+					{`${latestDate.split("T")[0]}, ${latestDate.split("T")[1]?.split(".")[0] ?? ""}`}
+				</span>
+			)}
+			{mode === "off" && cardVariant === "default" && (
+				<CardContent className="px-4 pb-4 pt-1">
+					<div className="flex items-center justify-between rounded-lg border border-dashed border-red-500/25 bg-red-500/5 px-3 py-2 text-sm">
+						<span className="font-medium text-red-500">אין נתוני ניטור</span>
+						<span className="text-muted-foreground">{site.area}</span>
+					</div>
+				</CardContent>
+			)}
 			{(mode === "on" || mode === "alert" || mode === "admin") && (
 				<CardContent
 					className={

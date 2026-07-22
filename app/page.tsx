@@ -5,6 +5,7 @@ import LastUpdatedFooter from "@/components/last-updated-footer";
 import { usePreferencesStore } from "@/stores/preferences-store";
 import { useRouter } from "next/navigation";
 import MainNavbar from "@/components/main-navbar/navigation-bar";
+import NetworkOverview from "@/components/network-overview";
 import { useEffect } from "react";
 
 // export const dynamic = "force-dynamic";
@@ -32,6 +33,7 @@ export default function Dashboard(props: Props) {
 			<MainNavbar />
 			<div className="flex min-h-[calc(100vh-4rem)] w-full flex-col font-heebo">
 				<main className="flex flex-1 flex-col gap-2 p-2 md:gap-4 md:p-4">
+					<NetworkOverview />
 					<div className="grid sm:grid-cols-2 md:grid-cols-auto-fill-220 gap-2 md:gap-3">
 						<SiteList />
 					</div>

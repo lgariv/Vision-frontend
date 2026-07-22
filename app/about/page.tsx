@@ -41,11 +41,12 @@ const AboutPage = (props: Props) => {
 								</h2>
 							</div>
 							<Image
-								src="https://media.licdn.com/dms/image/v2/D4E03AQHA8OANx3jqDQ/profile-displayphoto-shrink_800_800/B4EZOvY7Z3HEAc-/0/1733814368868?e=1747267200&v=beta&t=Ma88o812e6QdCucW7A5uqXwYI9CHT8ZYCJZAfQT8cA0"
-								alt="Vision Creator"
-								className="w-24 h-24 md:w-32 md:h-32 rounded-full object-cover"
+								src="/lavie-gariv-portrait.png"
+								alt="לביא גריב, היוצר של Vision"
+								className="w-24 h-24 md:w-32 md:h-32 rounded-full object-cover object-[50%_35%] scale-[1.18]"
 								width={128}
 								height={128}
+								sizes="(min-width: 768px) 128px, 96px"
 							/>
 						</div>
 						<div>

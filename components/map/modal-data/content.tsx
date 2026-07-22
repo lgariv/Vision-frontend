@@ -9,7 +9,7 @@ import {
 } from "@nextui-org/react";
 import DataAccordion from "./data-accordion";
 import SiteCard from "@/components/site-card";
-import { Edit3Icon, SaveIcon, SkipBackIcon, SkipForwardIcon } from "lucide-react";
+import { Edit3Icon, MapPin, SaveIcon, SkipBackIcon, SkipForwardIcon, WifiOff } from "lucide-react";
 import { usePreferencesStore } from "@/stores/preferences-store";
 import { useEffect, useState } from "react";
 import { mutate } from "swr";
@@ -21,8 +21,9 @@ type Props = {
 	handlePrev?: any;
 };
 
-const Content = ({ data, inDashboard, handleNext, handlePrev }: Props) => {	
+const Content = ({ data, inDashboard, handleNext, handlePrev }: Props) => {
 	const displayName = data.displayName;
+	const hasMonitoringData = data?.success && Array.isArray(data?.data) && data.data.length > 0;
 
 	const { location, setLocation } = usePreferencesStore();
 	const [tempLocation, setTempLocation] = useState("");
@@ -85,19 +86,42 @@ const Content = ({ data, inDashboard, handleNext, handlePrev }: Props) => {
 						</form>
 					)}
 				</div>
-				<div className="self-center lg:w-full max-w-2xl">
-					<SiteCard
-						siteName={data.displayName}
-						site={data}
-						key={data.displayName}
-						variant="modal"
-					/>
-				</div>
+				{hasMonitoringData && (
+					<div className="self-center lg:w-full max-w-2xl">
+						<SiteCard
+							siteName={data.displayName}
+							site={data}
+							key={data.displayName}
+							variant="modal"
+						/>
+					</div>
+				)}
 			</ModalHeader>
-			<ModalBody>
-				<ScrollShadow hideScrollBar className="w-full">
-					<DataAccordion data={data} />
-				</ScrollShadow>
+			<ModalBody className={hasMonitoringData ? "" : "pb-8"}>
+				{hasMonitoringData ? (
+					<ScrollShadow hideScrollBar className="w-full">
+						<DataAccordion data={data} />
+					</ScrollShadow>
+				) : (
+					<div className="flex min-h-56 flex-col items-center justify-center rounded-2xl border border-dashed border-red-500/30 bg-red-500/5 px-6 py-8 text-center font-heebo" dir="rtl">
+						<div className="mb-4 rounded-full bg-red-500/10 p-4 text-red-500">
+							<WifiOff size={38} aria-hidden="true" />
+						</div>
+						<h3 className="text-xl font-bold">האתר אינו זמין כרגע</h3>
+						<p className="mt-2 max-w-md text-muted-foreground">
+							לא התקבלו נתוני ניטור מהאתר. הנתונים יוצגו כאן באופן אוטומטי כשהתקשורת תחזור.
+						</p>
+						<div className="mt-5 flex flex-wrap justify-center gap-2 text-sm text-muted-foreground">
+							{data?.area && <span className="rounded-full border bg-background/60 px-3 py-1">אזור {data.area}</span>}
+							{data?.defaultLocation && (
+								<span className="inline-flex items-center gap-1 rounded-full border bg-background/60 px-3 py-1" dir="ltr">
+									<MapPin size={14} aria-hidden="true" />
+									{data.defaultLocation}
+								</span>
+							)}
+						</div>
+					</div>
+				)}
 			</ModalBody>
 			{inDashboard && (
 				<ModalFooter className="flex justify-between">

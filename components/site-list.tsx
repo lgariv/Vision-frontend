@@ -89,7 +89,7 @@ export default function SiteList() {
 
 	return (
 		<>
-			<div className="col-span-full flex items-center justify-between gap-3" dir="rtl">
+			<div className="col-span-full flex flex-wrap items-center justify-start gap-3" dir="rtl">
 				<div className="flex flex-wrap items-center gap-x-2 text-xs font-medium text-muted-foreground">
 					<span>{sitesData?.length ?? sites?.length ?? 0} אתרים</span>
 					<span aria-hidden="true">·</span>

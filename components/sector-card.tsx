@@ -54,9 +54,9 @@ export default function SectorCard({ sectorNumber, sectorState, currentValue, pr
 							data-trend={delta > 0 ? "up" : "down"}
 							title={`קודם: ${previousNumber} ${metricLabel}${deltaPercent === null ? "" : ` · שינוי של ${deltaPercent}%`}`}
 							aria-label={`שינוי מהמדידה הקודמת: ${delta > 0 ? "+" : ""}${delta}${metricLabel}${deltaPercent === null ? "" : `, ${deltaPercent}%`}`}
-							className="inline-flex shrink-0 items-center gap-0.5 text-[10px] font-medium text-muted-foreground/80"
+							className="inline-flex shrink-0 items-center gap-0.5 rounded-md border border-sky-500/20 bg-sky-500/10 px-1 py-0.5 text-[11px] font-bold text-sky-600 dark:text-sky-300"
 						>
-							<TrendIcon size={11} strokeWidth={2} aria-hidden="true" />
+							<TrendIcon size={12} strokeWidth={2.5} aria-hidden="true" />
 							<span className="tabular-nums">{delta > 0 ? "+" : ""}{delta}</span>
 						</span>
 					)}

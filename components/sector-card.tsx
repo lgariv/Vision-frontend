@@ -8,6 +8,7 @@ interface SectorCardProps {
 	cardVariant?: "default" | "modal";
 	currentValue: any;
 	previousValue: any;
+	metricLabel: string;
 }
 
 /**
@@ -15,7 +16,7 @@ interface SectorCardProps {
  * @param {SectorCardProps} props - The component props.
  * @returns {JSX.Element} The rendered component.
  */
-export default function SectorCard({ sectorNumber, sectorState, currentValue, previousValue, cardVariant }: SectorCardProps) {
+export default function SectorCard({ sectorNumber, sectorState, currentValue, previousValue, cardVariant, metricLabel }: SectorCardProps) {
 	let deltaDirection;
 	switch (true) {
 		case previousValue === undefined || Number.isNaN(previousValue) || previousValue.toString().length === 0:
@@ -50,17 +51,22 @@ export default function SectorCard({ sectorNumber, sectorState, currentValue, pr
 				</CardTitle>
 			</CardHeader>
 			<CardContent className="flex flex-row font-semibold items-center justify-between my-[2px] mx-[4px] p-1 -mt-2">
-				<div>
-					<p className="text-md">
+				<div className="flex items-baseline gap-1">
+					<p className="text-md font-bold tabular-nums">
 						{sectorState === "enabled"
 							? currentValue!
 							: sectorState === "locked"
 							? "נעול"
 							: "למטה"}
 					</p>
+					{sectorState === "enabled" && (
+						<span className="text-[10px] font-medium text-muted-foreground">{metricLabel}</span>
+					)}
 				</div>
 				{deltaDirection !== "none" && (
 					<div
+						title="שינוי מהמדידה הקודמת"
+						aria-label={`שינוי מהמדידה הקודמת: ${deltaValue}`}
 						className={`inline-flex self-end ${
 							deltaDirection === "positive"
 								? "text-green-400 dark:text-green-600"

@@ -54,6 +54,10 @@ export default function SiteCard({ siteName, site, variant, onClick }: SiteCardP
 					<CardTitle className="font-medium text-2xl mt-1">
 						{siteName}
 					</CardTitle>
+					<div className="flex items-center gap-2">
+						<span className="text-[10px] font-medium text-muted-foreground">
+							{primaryValue === "RR" ? "רעש · dBm" : "משתמשים · UEs"}
+						</span>
 					{(() => {
 						switch (mode) {
 							case "on":
@@ -76,6 +80,7 @@ export default function SiteCard({ siteName, site, variant, onClick }: SiteCardP
 								return null;
 						}
 					})()}
+					</div>
 				</CardHeader>
 			)}
 			{process.env.NODE_ENV === "development" && latestDate && (
@@ -154,6 +159,7 @@ export default function SiteCard({ siteName, site, variant, onClick }: SiteCardP
 									}
 									currentValue={currentUEValue}
 									previousValue={previousUEValue}
+									metricLabel="UEs"
 								/>
 							) : (
 								<Card
@@ -187,7 +193,10 @@ export default function SiteCard({ siteName, site, variant, onClick }: SiteCardP
 											cell.opState.includes("1") ? (
 												Math.abs(currentRRValue) !=
 												0 ? (
-													Math.abs(currentRRValue)
+											<span className="inline-flex items-baseline gap-1 font-bold tabular-nums">
+												{Math.abs(currentRRValue)}
+												<span className="text-[10px] font-medium text-muted-foreground">dBm</span>
+											</span>
 												) : (
 													<></>
 												)

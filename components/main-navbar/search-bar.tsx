@@ -9,7 +9,7 @@ import { useSitesStore } from "@/stores/sites-store";
  * @returns {JSX.Element} The rendered navigation item.
  */
 export default function SearchBar() {
-	const { setSearchString } = useSitesStore();
+	const { searchString, setSearchString } = useSitesStore();
 
 	return (
 		<form className="ml-auto flex-1 sm:flex-initial" onSubmit={(e: React.FormEvent<HTMLFormElement>) => e.preventDefault()}>
@@ -18,6 +18,7 @@ export default function SearchBar() {
 				<Input
 					type="search"
 					placeholder="שם אתר..."
+					value={searchString ?? ""}
 					className="pl-8 sm:w-[200px] md:w-[200px] lg:w-[200px]"
 					onInput={(e: React.FormEvent<HTMLInputElement>) => {
 						e.preventDefault();

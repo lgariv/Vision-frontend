@@ -1,8 +1,8 @@
 import { create } from "zustand";
 
 type SitesStore = {
-	sitesData?: [SiteData];
-	setSitesData: (data: [SiteData]) => void;
+	sitesData?: SiteData[];
+	setSitesData: (data: SiteData[]) => void;
 	searchString?: string;
 	setSearchString: (search: string) => void;
 	filterString: "הכל" | "צפון" | "מרכז" | "דרום" | "כלים ניידים";

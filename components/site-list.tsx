@@ -5,8 +5,9 @@ import SiteCard from "@/components/site-card";
 import { useSitesStore } from "@/stores/sites-store";
 import { useEffect, useState } from "react";
 import { useSites } from "@/utils/use-sites";
-import { Modal, useDisclosure } from "@nextui-org/react";
+import { Button, Modal, useDisclosure } from "@nextui-org/react";
 import Content from "./map/modal-data/content";
+import { SearchX } from "lucide-react";
 
 /**
  * Renders a list of sites using data fetched from the "/api/sites-data" endpoint.
@@ -16,7 +17,7 @@ import Content from "./map/modal-data/content";
  * @returns The rendered list of sites as SiteCard components.
  */
 export default function SiteList() {
-	const { sitesData, setSitesData, searchString, filterString } = useSitesStore();
+	const { sitesData, setSitesData, searchString, filterString, setSearchString, setFilterString } = useSitesStore();
 	const { data: sites, isLoading } = useSites();
 
 	const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -97,7 +98,31 @@ export default function SiteList() {
 					handlePrev={handlePrev}
 				/>
 			</Modal>
-			{sitesData ? (
+			{sitesData && sitesData.length === 0 ? (
+				<div
+					className="col-span-full flex min-h-72 flex-col items-center justify-center rounded-2xl border border-dashed bg-secondary/50 px-6 py-10 text-center"
+					dir="rtl"
+					role="status"
+				>
+					<div className="mb-4 rounded-full bg-muted p-4 text-muted-foreground">
+						<SearchX size={34} aria-hidden="true" />
+					</div>
+					<h2 className="text-2xl font-bold">לא נמצאו אתרים</h2>
+					<p className="mt-2 max-w-md text-muted-foreground">
+						לא נמצאו תוצאות שמתאימות לחיפוש או לסינון שבחרת.
+					</p>
+					<Button
+						className="mt-5 font-heebo font-semibold"
+						color="primary"
+						onPress={() => {
+							setSearchString("");
+							setFilterString("הכל");
+						}}
+					>
+						ניקוי חיפוש וסינון
+					</Button>
+				</div>
+			) : sitesData ? (
 				sitesData
 					.sort((a: any, b: any) => {
 						return a.amosName.localeCompare(b.amosName);

@@ -24,7 +24,7 @@ import { mutate } from "swr";
  * @returns The JSX element representing the navigation bar.
  */
 export default function Navbar() {
-    const { setFilterString } = useSitesStore();
+    const { filterString, setFilterString } = useSitesStore();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     // Add effect to control body scroll
@@ -63,7 +63,7 @@ export default function Navbar() {
 
                 {/* Desktop Controls */}
                 <div className="hidden md:flex items-center gap-4">
-                    <Select dir="rtl" onValueChange={(value: "הכל" | "צפון" | "מרכז" | "דרום" | "כלים ניידים") => {
+                    <Select dir="rtl" value={filterString ?? "הכל"} onValueChange={(value: "הכל" | "צפון" | "מרכז" | "דרום" | "כלים ניידים") => {
                         setFilterString(value);
                     }}>
                         <SelectTrigger className="w-[180px]">
@@ -103,7 +103,7 @@ export default function Navbar() {
 							<NavItem href="/about" onClick={() => setIsMenuOpen(false)}>אודות</NavItem>
 						</div>
 						<div className="space-y-4">
-							<Select dir="rtl" onValueChange={(value: "הכל" | "צפון" | "מרכז" | "דרום" | "כלים ניידים") => {
+							<Select dir="rtl" value={filterString ?? "הכל"} onValueChange={(value: "הכל" | "צפון" | "מרכז" | "דרום" | "כלים ניידים") => {
 								setFilterString(value);
 							}}>
 								<SelectTrigger className="w-full">
